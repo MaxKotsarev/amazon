@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_price: 9.99
+  completed_date: 2015-06-22 13:22:23
+  state: MyString
+  customer_id: 
+  creditcard_id: 
+
+two:
+  total_price: 9.99
+  completed_date: 2015-06-22 13:22:23
+  state: MyString
+  customer_id: 
+  creditcard_id: 

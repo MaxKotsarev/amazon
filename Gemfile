@@ -9,7 +9,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+gem 'devise', '~> 3.4.0' 
+gem 'haml'
 
 group :development, :test do
   gem 'byebug'
@@ -20,6 +21,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
   gem 'faker'
   gem 'database_cleaner'
   gem 'shoulda-matchers'

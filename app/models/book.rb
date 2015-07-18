@@ -3,5 +3,7 @@ class Book < ActiveRecord::Base
   belongs_to :author
   has_many :ratings
 
-  validates_presence_of :title, :price, :amount
+  validates_presence_of :title, :price, :amount, :image
+
+  mount_uploader :image, ImageUploader
 end

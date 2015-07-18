@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713185730) do
+ActiveRecord::Schema.define(version: 20150717123015) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "address"
@@ -24,6 +24,24 @@ ActiveRecord::Schema.define(version: 20150713185730) do
   end
 
   add_index "addresses", ["country_id"], name: "index_addresses_on_country_id"
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "authors", force: :cascade do |t|
     t.string   "firstname"
@@ -40,8 +58,10 @@ ActiveRecord::Schema.define(version: 20150713185730) do
     t.integer  "amount"
     t.integer  "category_id"
     t.integer  "author_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.text     "short_description"
+    t.string   "image"
   end
 
   add_index "books", ["author_id"], name: "index_books_on_author_id"
@@ -76,11 +96,22 @@ ActiveRecord::Schema.define(version: 20150713185730) do
   create_table "customers", force: :cascade do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.string   "email"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "email",                  default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
 
   create_table "order_items", force: :cascade do |t|
     t.decimal  "price"
@@ -122,24 +153,5 @@ ActiveRecord::Schema.define(version: 20150713185730) do
 
   add_index "ratings", ["book_id"], name: "index_ratings_on_book_id"
   add_index "ratings", ["customer_id"], name: "index_ratings_on_customer_id"
-
-  create_table "users", force: :cascade do |t|
-    t.boolean  "admin"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

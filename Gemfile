@@ -11,6 +11,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 3.4.0' 
 gem 'haml'
+gem 'rails_admin', '~> 0.6.8'
+gem 'bootstrap-sass'
+gem "mini_magick"
+gem 'rake', '~> 10.4.2'
+gem 'carrierwave', '~> 0.10.0'
+gem 'kaminari'
+#gem "cancan"
 
 group :development, :test do
   gem 'byebug'

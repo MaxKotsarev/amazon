@@ -83,4 +83,12 @@ body {
 .reviews {
   margin-top: 50px;
   .add-review-lnk {margin-top: 30px;}
+  .review {
+    margin: 20px 0px 40px;
+    time {color: #999; display:inline-block;margin-left: 20px;}
+    .review-authour {display:inline-block; margin-left: 20px;}
+    p {margin-top: 15px;}
+  }
 }
+
+.star-rating {margin-bottom:-6px;}

@@ -1,0 +1,20 @@
+.container
+  %h1 
+    New review for
+    =link_to @book.title, @book
+
+  =form_for @rating do |f|
+    .form-group 
+      =f.label :rating_number, "Rating:", class: "control-label"
+      %span.star-rating
+        -(1..5).each do |i|
+          =f.radio_button :rating_number, i
+          %i
+    .form-group 
+      =f.label :review, "Text:", class: "control-label"
+      =f.text_area :review, class: "form-control"
+    .form-group
+      =f.submit 'Add review', class: "btn btn-primary"
+      %span
+        or
+        =link_to "Cencel", :back 

@@ -18,6 +18,7 @@ gem 'rake', '~> 10.4.2'
 gem 'carrierwave', '~> 0.10.0'
 gem 'kaminari'
 gem "cancancan"
+gem 'ratyrate'
 
 group :development, :test do
   gem 'byebug'

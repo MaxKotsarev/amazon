@@ -14,9 +14,25 @@
         %p= @book.short_description
         %div= @book.description
 
-  .row.clearfix.reviews
+  .row.reviews.clearfix
     .col-md-3
       %h2 Reviews
     .col-md-9.add-review-lnk
-      =link_to "Add review for this book", root_path
+      =link_to "Add review for this book", new_rating_path
+    .col-md-12
+      -if @book.ratings.any?
+        -@book.ratings.each do |rating|
+          .review
+            %span.star-rating
+              -(1..5).each do |i|
+                -if i <= rating.rating_number
+                  %i.active
+                -else 
+                  %i
+            .review-authour="by " + rating.customer.firstname + rating.customer.lastname
+            %time=rating.created_at.strftime("%B %d, %Y")
+            %p
+              %em=rating.review
+      -else
+        .no-reviwes-message There is no revies for this book. Your's can be first. 
       

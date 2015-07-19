@@ -17,7 +17,7 @@ gem "mini_magick"
 gem 'rake', '~> 10.4.2'
 gem 'carrierwave', '~> 0.10.0'
 gem 'kaminari'
-#gem "cancan"
+gem "cancancan"
 
 group :development, :test do
   gem 'byebug'

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admins
   root 'pages#index'
   devise_for :customers, :controllers => { registrations: 'customers/registrations' }
-  devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
   get '/shop', to: 'pages#shop', as: 'shop'

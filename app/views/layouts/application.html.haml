@@ -15,8 +15,11 @@
           %li= link_to "Shop", shop_path, class: cp(shop_path)
 
         %ul.nav.navbar-nav.navbar-right  
-          -if customer_signed_in?           
+          -if current_customer           
             %li= link_to "Sign out", destroy_customer_session_path, method: :delete
+          -elsif current_admin  
+            %li= link_to "Admin panel", rails_admin_path         
+            %li= link_to "Sign out", destroy_admin_session_path, method: :delete  
           -else 
             %li= link_to "Sign in", new_customer_session_path, class: cp(new_customer_session_path)
             %li= link_to "Sign up", new_customer_registration_path, class: cp(new_customer_registration_path)
@@ -31,8 +34,4 @@
           .alert.alert-info= msg
 
     = yield
-
-    /-elsif admin_signed_in?  
-    /  %li= link_to "Admin panel", rails_admin_path         
-    /  %li= link_to "Sign out", destroy_admin_session_path, method: :delete
 

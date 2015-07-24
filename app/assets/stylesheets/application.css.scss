@@ -12,7 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= require owl.carousel
+ *= require owl.theme
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -39,56 +42,23 @@ body {
   }
 }
 
-.book-wrap {
-  float:left;
-  width:30%;
-  padding: 2%; 
-  margin-right: 3%;
-  background-color: #fff;
-  text-align:center;
-  margin-bottom: 30px;
-  border-radius: 3px;
-  .image-wrap {
-    margin-bottom: 10px;
+.underlined-h2 {border-bottom: 2px solid #ccc;}
+
+
+.home-page-slider {
+  img {max-height: 450px; margin-left:0.5%; max-width:99%; float: left;}
+  .owl-prev, .owl-next {
+    position: absolute;
+    top: 30%;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    line-height: 2;
   }
+  .owl-prev {left: -7%;}
+  .owl-next {right: -7%;}
+  .price {float: left; display:inline-block; margin-right: 20px; font-size: 23px;}
+  .quantity-input {width: 50px; padding: 4px 10px;}
 }
 
-.categories {
-  list-style:none;
-  padding-left: 0px;
-  margin-top: 30px;
-  li {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-}
-
-.book-page-wrap {
-  .image-wrap {
-    text-align:center;
-  }
-  .price {
-    width: 100px;
-    float: left;
-    font-size: 30px;
-  }
-  .order-form-wrap {
-    width: 200px;
-    float:right;
-    .quantity-input {width: 50px; padding: 4px 10px;}
-    margin-bottom: 20px;
-  }
-}
-
-.reviews {
-  margin-top: 50px;
-  .add-review-lnk {margin-top: 30px;}
-  .review {
-    margin: 20px 0px 40px;
-    time {color: #999; display:inline-block;margin-left: 20px;}
-    .review-authour {display:inline-block; margin-left: 20px;}
-    p {margin-top: 15px;}
-  }
-}
-
-.star-rating {margin-bottom:-6px;}
+.facebook-btn {width: 100%; font:bold 40px Arial; display: inline-block; margin:10px 0px 30px;}

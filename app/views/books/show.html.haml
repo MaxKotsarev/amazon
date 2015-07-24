@@ -29,7 +29,7 @@
                   %i.active
                 -else 
                   %i
-            .review-authour="by " + rating.customer.firstname + rating.customer.lastname
+            .review-authour="by #{rating.customer.firstname} #{rating.customer.lastname}"
             %time=rating.created_at.strftime("%B %d, %Y")
             %p
               %em=rating.review

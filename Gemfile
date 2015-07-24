@@ -18,7 +18,12 @@ gem 'rake', '~> 10.4.2'
 gem 'carrierwave', '~> 0.10.0'
 gem 'kaminari'
 gem "cancancan"
-gem 'ratyrate'
+gem 'owlcarousel-rails'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem "fog"
+gem 'carrierwave-aws'
+gem "figaro"
 
 group :development, :test do
   gem 'byebug'

@@ -1,0 +1,26 @@
+.container 
+  .row 
+    .col-md-4.col-md-offset-4
+      %h1.text-center Log in 
+      = link_to "f", customer_omniauth_authorize_path(:facebook), class: "btn btn-primary btn-lg facebook-btn"
+      %h4.text-center or
+      %br
+
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        = devise_error_messages!
+
+        .form-group
+          = f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email"
+
+        .form-group
+          = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password"
+        
+        -if devise_mapping.rememberable?
+          .form-group
+            = f.check_box :remember_me
+            %em remember me
+            
+        .form-group
+          = f.submit "Log in", class: "btn btn-primary"
+
+      = render "customers/shared/links"

@@ -1,9 +1,10 @@
 class RatingsController < ApplicationController
   before_action :find_book, only: [:new, :create]
+  before_action :authenticate_customer!
   
-  def new 
+  def new
     @rating = Rating.new
-    @params = params.inspect 
+    @params = params.inspect
   end
 
   def create 

@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require owl.carousel
+
+
+var ready;
+ready = function() {
+  $(".owl-carousel").owlCarousel({
+    navigation : true, // Show next and prev buttons
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    singleItem:true, 
+    navigationText: ["<span class='glyphicon glyphicon-chevron-left'></span>","<span class='glyphicon glyphicon-chevron-right'></span>"]
+  });
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

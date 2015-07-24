@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719202620) do
+ActiveRecord::Schema.define(version: 20150723125639) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "address"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20150719202620) do
     t.integer  "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "firstname"
+    t.string   "lastname"
   end
 
   add_index "addresses", ["country_id"], name: "index_addresses_on_country_id"
@@ -108,10 +110,16 @@ ActiveRecord::Schema.define(version: 20150719202620) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.string   "provider"
+    t.string   "uid"
   end
 
+  add_index "customers", ["billing_address_id"], name: "index_customers_on_billing_address_id"
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
   add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+  add_index "customers", ["shipping_address_id"], name: "index_customers_on_shipping_address_id"
 
   create_table "order_items", force: :cascade do |t|
     t.decimal  "price"

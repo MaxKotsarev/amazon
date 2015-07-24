@@ -1,2 +1,27 @@
 .container
-  %h1 Home page
+  %h1.text-center
+    Welcome to our amazing Bookstore! 
+    %br
+    %small Choose anything you wish, we'll ship it anywhere.
+  
+  .row
+    .col-md-10.col-md-offset-1
+      .owl-carousel.home-page-slider
+        -@books.each do |book|
+          %div
+            .col_md-4
+              =link_to book do 
+                =image_tag book.image.url.to_s, class: "thumbnail"
+            .col-md-6
+              %h2
+                =link_to book do 
+                  = book.title
+                %br
+                %small= "by #{book.author.firstname} #{book.author.lastname}" 
+              %p= book.short_description
+              %br
+              .price= number_to_currency(book.price)
+              .order-form-wrap
+                =form_tag do
+                  = number_field_tag 'quantity', "1", within: 1...10, class: 'quantity-input'
+                  = submit_tag "ADD TO CART", class: 'btn btn-primary' 

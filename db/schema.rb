@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150723125639) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.string   "address"
     t.string   "zipcode"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.string   "lastname"
   end
 
-  add_index "addresses", ["country_id"], name: "index_addresses_on_country_id"
+  add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -42,8 +45,8 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.datetime "updated_at"
   end
 
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "authors", force: :cascade do |t|
     t.string   "firstname"
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.string   "image"
   end
 
-  add_index "books", ["author_id"], name: "index_books_on_author_id"
-  add_index "books", ["category_id"], name: "index_books_on_category_id"
+  add_index "books", ["author_id"], name: "index_books_on_author_id", using: :btree
+  add_index "books", ["category_id"], name: "index_books_on_category_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -93,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "credit_cards", ["customer_id"], name: "index_credit_cards_on_customer_id"
+  add_index "credit_cards", ["customer_id"], name: "index_credit_cards_on_customer_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "firstname"
@@ -116,10 +119,10 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.string   "uid"
   end
 
-  add_index "customers", ["billing_address_id"], name: "index_customers_on_billing_address_id"
-  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
-  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
-  add_index "customers", ["shipping_address_id"], name: "index_customers_on_shipping_address_id"
+  add_index "customers", ["billing_address_id"], name: "index_customers_on_billing_address_id", using: :btree
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true, using: :btree
+  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
+  add_index "customers", ["shipping_address_id"], name: "index_customers_on_shipping_address_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.decimal  "price"
@@ -130,8 +133,8 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "order_items", ["book_id"], name: "index_order_items_on_book_id"
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["book_id"], name: "index_order_items_on_book_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.decimal  "total_price"
@@ -145,10 +148,10 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.integer  "shipping_address_id"
   end
 
-  add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id"
-  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id"
-  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
-  add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
+  add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
+  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.text     "review"
@@ -160,7 +163,7 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.boolean  "approved"
   end
 
-  add_index "ratings", ["book_id"], name: "index_ratings_on_book_id"
-  add_index "ratings", ["customer_id"], name: "index_ratings_on_customer_id"
+  add_index "ratings", ["book_id"], name: "index_ratings_on_book_id", using: :btree
+  add_index "ratings", ["customer_id"], name: "index_ratings_on_customer_id", using: :btree
 
 end

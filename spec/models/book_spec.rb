@@ -6,7 +6,6 @@ describe Book do
   it { expect(subject).to validate_presence_of(:title) }
   it { expect(subject).to validate_presence_of(:price) }
   it { expect(subject).to validate_presence_of(:amount) }
-  it { expect(subject).to validate_presence_of(:image) }
 
   it { expect(subject).to have_many(:ratings) }
   it { expect(subject).to belong_to(:category) }

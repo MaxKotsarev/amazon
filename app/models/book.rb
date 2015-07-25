@@ -3,7 +3,7 @@ class Book < ActiveRecord::Base
   belongs_to :author
   has_many :ratings, -> { order 'created_at desc' }
 
-  validates_presence_of :title, :price, :amount, :image
+  validates_presence_of :title, :price, :amount
 
   mount_uploader :image, ImageUploader
 end

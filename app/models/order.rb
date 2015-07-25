@@ -7,13 +7,12 @@ class Order < ActiveRecord::Base
   belongs_to :billing_address, class_name: "Address"
   belongs_to :shipping_address, class_name: "Address"
 
-  validates_presence_of :total_price
   validates_presence_of :completed_date, if: -> {self.state == POSSIBLE_STATES[1]}
   validates :state, inclusion: { in: POSSIBLE_STATES }, presence: true
 
-  after_initialize :set_default_state
-  after_initialize :set_default_total_price
-  before_save :calc_and_set_total_price
+  after_initialize do
+    self.state ||= POSSIBLE_STATES[0]
+  end
 
   scope :in_progress, -> {where(state: POSSIBLE_STATES[0])}
 
@@ -25,23 +24,15 @@ class Order < ActiveRecord::Base
     else 
       self.order_items.create(price: book.price, quantity: quantity, book: book)
     end
-    self.save
+    self.calc_and_set_total_price
   end
 
-  private
   def calc_and_set_total_price
     if self.order_items.any?
-      self.total_price = self.order_items.inject(0.0) {|sum, i| sum + i.price*i.quantity} 
+      self.total_price = self.order_items.inject(0) {|sum, i| sum + i.price*i.quantity} 
     else 
-      self.total_price = 0.0
+      self.total_price = 0
     end
-  end
-
-  def set_default_total_price
-    self.total_price ||= 0.0
-  end
-
-  def set_default_state
-    self.state ||= POSSIBLE_STATES[0]
+    self.save
   end
 end

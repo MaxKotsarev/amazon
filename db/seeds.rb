@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+["Ukraine", "USA", "Uganda", "Argentina", "Jamaica"].each do |name|
+  Country.find_or_create_by(name: name)
+end
+
+# create first admin user
+Admin.delete_all
+Admin.create(email: "admin@gmail.com", password: "password")
+ 

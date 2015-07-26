@@ -3,6 +3,12 @@
     New review for
     =link_to @book.title, @book
 
+  - if @rating.errors.any?
+    %div.alert.alert-danger
+      %strong Review can't be save because: 
+      - @rating.errors.full_messages.each do |msg|
+        %div= "- " + msg
+
   =form_for @rating do |f|
     .form-group 
       =f.label :rating_number, "Rating:", class: "control-label"
@@ -17,4 +23,4 @@
       =f.submit 'Add review', class: "btn btn-primary"
       %span
         or
-        =link_to "Cencel", :back 
+        =link_to "Cencel", @book 

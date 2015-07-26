@@ -4,16 +4,16 @@ class RatingsController < ApplicationController
   
   def new
     @rating = Rating.new
-    @params = params.inspect
   end
 
   def create 
     @rating = current_customer.ratings.build(rating_params)
     @rating.book = @book
     if @rating.save
-      redirect_to @book, notice: "Thank you for review! It will show up on this page after moderation."
+      redirect_to @book, notice: "Thank you for review! It will appear on this page after moderation. #{@rating.inspect} #{Rating.last.inspect}"
+      # нужно доработать и убрать вывод созданного рейтинга.
     else 
-      render 'new', alert: "Somthing went wrong. Try again pls."
+      render 'new'
     end
   end
 

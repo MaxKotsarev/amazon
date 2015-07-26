@@ -21,3 +21,16 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      rating:
+        rating_number: "rating"
+        review: "text review"
+    errors:
+      models:
+        rating:
+          attributes:
+            rating_number:
+              blank: "is required."
+            review:
+              blank: "is required."

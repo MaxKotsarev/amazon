@@ -2,5 +2,5 @@ class Rating < ActiveRecord::Base
   belongs_to :book
   belongs_to :customer
 
-  validates_inclusion_of :rating_number, :in => 1..10
+  validates_presence_of :rating_number, :review, :book, :customer
 end

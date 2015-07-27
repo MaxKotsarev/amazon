@@ -5,21 +5,21 @@ class AddressesController < ApplicationController
   end
 
   def create 
-    @address = Address.new(params[:firstname])
+    @address = current_customer
+    render text: @address.inspect
+=begin
+    @address = Address.new(address_params)
     if @address.save
       redirect_to "settings/index", notice: "Billing address was successfully created"
     else
-      redirect_to "settings/index", notice: "Somting went wrong"
+      redirect_to "settings/index", notice: "Somthing went wrong"
     end
-  end
-
-  def check_params
-    redirect_to "settings/index", notice: "Look at params #{params}"
+=end
   end
 
   private
   def address_params 
-    params.require(:billing_address).permit(:firstname, :lastname, :address, :city, :country_id, :zipcode, :phone)
+    params.require(:address).permit(:firstname, :lastname, :address, :city, :country_id, :zipcode, :phone)
   end
 
   def find_address

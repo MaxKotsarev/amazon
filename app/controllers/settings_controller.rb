@@ -1,24 +1,26 @@
 class SettingsController < ApplicationController
   before_action :authenticate_customer!
+  before_action :find_current_customer, only: [:change_password, :change_personal_info]
 
   def index 
     #@shipping_address = current_customer.shipping_address || current_customer.shipping_address.build 
-    @billing_address = Address.new#current_customer.billing_address || current_customer.billing_address.build 
-    @countries = Country.all
+    #@billing_address = Address.new#current_customer.billing_address || current_customer.billing_address.build 
+    #@countries = Country.all
   end
 
   def change_password
-    if current_customer.valid_password?(password_params[:old_password]) && new_password.size >= 8
-      customer = Customer.find(current_customer.id)
-      new_password = password_params[:password]
-      customer.password = new_password
-      customer.save
-      sign_in customer, :bypass => true
-      redirect_to :back, notice: "Your password was successfully changed."
-    elsif customer.valid_password?(password_params[:old_password]) && new_password.size < 8
-      redirect_to :back, alert: "Sory, your new password should contain 8 characters minimum. Pls try again."
+    old_pass = password_params[:old_password]
+    new_pass = password_params[:new_password]
+
+    if @customer.valid_password?(old_pass) && new_pass.size >= 8
+      @customer.password = new_pass
+      @customer.save
+      sign_in @customer, :bypass => true
+      redirect_to :back, notice: "Your password successfully changed."
+    elsif !@customer.valid_password?(old_pass) 
+      redirect_to :back, alert: "Oops! You entered wrong current password. Pls try again."
     else 
-      redirect_to :back, alert: "You entered wrong current password. Pls try again."
+      redirect_to :back, alert: "Oops! New password should have at least 8 characters. Pls try again."
     end
   end
 
@@ -29,6 +31,10 @@ class SettingsController < ApplicationController
   private
 
   def password_params
-    params.require(:customer).permit(:old_password, :password)
+    params.require(:customer).permit(:old_password, :new_password)
+  end
+
+  def find_current_customer
+    @customer = Customer.find(current_customer.id) 
   end
 end

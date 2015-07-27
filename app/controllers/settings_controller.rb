@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :find_current_customer, only: [:change_password, :change_personal_info]
+  before_action :find_current_customer#, only: [:change_password, :change_personal_info]
 
   def index 
     #@shipping_address = current_customer.shipping_address || current_customer.shipping_address.build 
@@ -25,13 +25,24 @@ class SettingsController < ApplicationController
   end
 
   def change_personal_info
-
+    @customer.update(name_email_params)
+    if @customer.save
+      redirect_to :back, notice: "Your data was successfully updated."
+    else
+      flash.now[:notice] = "You've got some errors. Check it below. #{@customer.errors.inspect}"
+      render "settings/index"
+    end
   end
+
 
   private
 
-  def password_params
+  def password_params 
     params.require(:customer).permit(:old_password, :new_password)
+  end
+
+  def name_email_params
+    params.require(:customer).permit(:email, :lastname, :firstname)
   end
 
   def find_current_customer

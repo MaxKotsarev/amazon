@@ -12,7 +12,7 @@ class Customer < ActiveRecord::Base
   belongs_to :shipping_address, class_name: "Address"
 
   validates_presence_of :email, :encrypted_password, :firstname, :lastname
-  validates :email, uniqueness: { case_sensitive: false }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, uniqueness: { case_sensitive: false }#, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   def create_new_order
     self.orders.create

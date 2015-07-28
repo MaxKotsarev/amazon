@@ -5,7 +5,8 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.update(address_params)
     if @address.save
-      redirect_to settings_path, notice: "#{params[:address_type].capitalize}  address was successfully updated."
+      flash[:success] = "#{params[:address_type].capitalize}  address was successfully updated."
+      redirect_to settings_path 
     else
       render_settings_with_errors 
     end
@@ -17,7 +18,8 @@ class AddressesController < ApplicationController
       @customer = Customer.find(current_customer.id) 
       set_customer_address_id(params[:address_type], @address.id)
       @customer.save
-      redirect_to settings_path, notice: "#{params[:address_type].capitalize} address was successfully created."
+      flash[:success] = "#{params[:address_type].capitalize} address was successfully created."
+      redirect_to settings_path 
     else
       render_settings_with_errors 
     end
@@ -43,7 +45,7 @@ class AddressesController < ApplicationController
   def render_settings_with_errors
     fetch_data_for_settings_page
     reassign_address
-    flash[:alert] = "You've got some errors. Check it below."
+    flash[:error] = "You've got some errors. Check it below."
     render 'settings/index' 
   end
 end

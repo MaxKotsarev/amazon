@@ -13,20 +13,22 @@ class SettingsController < ApplicationController
       @customer.password = new_pass
       @customer.save
       sign_in @customer, :bypass => true
-      redirect_to :back, notice: "Your password successfully changed."
+      flash[:success] = "Your password successfully changed."
+      redirect_to :back
     elsif !@customer.valid_password?(old_pass) 
-      redirect_to :back, alert: "You entered wrong current password. Pls try again."
+      redirect_to :back, error: "You entered wrong current password. Pls try again."
     else 
-      redirect_to :back, alert: "New password should have at least 8 characters. Pls try again."
+      redirect_to :back, error: "New password should have at least 8 characters. Pls try again."
     end
   end
 
   def change_personal_info
     @customer.update(name_email_params)
     if @customer.save
-      redirect_to :back, notice: "Your data was successfully updated."
+      flash[:success] = "Your data was successfully updated."
+      redirect_to :back
     else
-      flash.now[:notice] = "You've got some errors. Check it below."
+      flash.now[:error] = "You've got some errors. Check it below."
       render "settings/index"
     end
   end

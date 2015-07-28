@@ -28,17 +28,14 @@
             %li= link_to "Sign up", new_customer_registration_path, class: cp(new_customer_registration_path)
             
     .container.notifications
-      - flash.each do |name, msg|
-        -if name = "notice"
-          .alert.alert-success= msg
-        -elsif name = "alert"
-          .alert.alert-danger= msg
-        -else
-          .alert.alert-info= msg
+      - flash.each do |type, message|
+        %div{:class => "alert #{bootstrap_class_for(type)}  alert-dismissible"}
+          %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          = message
 
     = yield
 
-    %br
     %br
     %br
   

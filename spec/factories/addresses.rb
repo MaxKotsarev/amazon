@@ -4,6 +4,8 @@ FactoryGirl.define do
     zipcode {Faker::Address.zip_code}
     city {Faker::Address.city}
     phone {Faker::PhoneNumber.phone_number}
-    country_id nil  
+    country
+    firstname {Faker::Name.first_name}
+	lastname {Faker::Name.last_name}
   end
 end

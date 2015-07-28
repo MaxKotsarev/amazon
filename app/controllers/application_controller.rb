@@ -31,4 +31,12 @@ class ApplicationController < ActionController::Base
   def stored_location_for(resource) 
     session[:customer_return_to] || session[:admin_return_to]
   end
+
+
+  def fetch_data_for_settings_page
+    @customer = Customer.find(current_customer.id) 
+    @billing_address = @customer.billing_address || Address.new
+    @shipping_address = @customer.shipping_address || Address.new
+    @countries = Country.all
+  end
 end

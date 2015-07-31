@@ -1,8 +1,8 @@
 class AddressesController < ApplicationController
   before_action :authenticate_customer!
+  load_and_authorize_resource
 
   def update 
-    @address = Address.find(params[:id])
     if @address.update(address_params)
       flash[:success] = "#{params[:address_type].capitalize}  address was successfully updated."
       redirect_to settings_path 

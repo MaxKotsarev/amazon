@@ -1,0 +1,5 @@
+.col-md-3
+  %h4 Shop by categories:
+  %ul.categories 
+    -@categories.each do |category|
+      %li= link_to category.title, category

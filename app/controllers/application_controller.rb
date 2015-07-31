@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_auth_resource)
   end
 
+
   def after_sign_in_path(resource)
     stored_location_for(resource) || request.referer
   end
@@ -34,9 +35,8 @@ class ApplicationController < ActionController::Base
 
 
   def fetch_data_for_settings_page
-    @customer = Customer.find(current_customer.id) 
-    @billing_address = @customer.billing_address || Address.new
-    @shipping_address = @customer.shipping_address || Address.new
+    @billing_address = current_customer.billing_address || Address.new
+    @shipping_address = current_customer.shipping_address || Address.new
     @countries = Country.all
   end
 end

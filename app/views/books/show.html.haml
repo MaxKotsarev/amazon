@@ -17,7 +17,7 @@
     .col-md-3
       %h2 Reviews
     .col-md-9.add-review-lnk
-      =link_to "Add review for this book", new_rating_path
+      =link_to "Add review for this book", new_book_rating_path(@book)
     .col-md-12
       -if @book.ratings.any?
         -@book.ratings.each do |rating|

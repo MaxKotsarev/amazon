@@ -7,8 +7,8 @@ class RatingsController < ApplicationController
   end
 
   def create 
-    @rating = current_customer.ratings.build(rating_params)
-    @rating.book = @book
+    @rating = @book.ratings.build(rating_params)
+    @rating.customer = current_customer
     if @rating.save
       redirect_to @book, notice: "Thank you for review! It will appear on this page after moderation. #{@rating.inspect} #{Rating.last.inspect}"
       # нужно доработать и убрать вывод созданного рейтинга.
@@ -23,6 +23,6 @@ class RatingsController < ApplicationController
   end
 
   def find_book
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
   end
 end

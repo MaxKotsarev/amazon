@@ -1,7 +1,9 @@
 .container
   %ol.breadcrumb
     %li= link_to 'Home', root_path
-    %li= link_to 'Shop', shop_path
+    %li= link_to 'Shop', books_path
     %li.active= @category.title
   %h1 Books in category '#{@category.title}'
-  =render 'shared/books_and_categories'
+  .row
+    =render "books/books_list"
+    =render 'categories/index'

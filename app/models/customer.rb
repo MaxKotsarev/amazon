@@ -30,4 +30,8 @@ class Customer < ActiveRecord::Base
       user.lastname = auth.info.last_name
     end
   end
+
+  def title 
+    self.firstname + " " + self.lastname
+  end 
 end

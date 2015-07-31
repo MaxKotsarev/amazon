@@ -12,7 +12,7 @@
         .navbar-brand= link_to "BookStore", root_path
         %ul.nav.navbar-nav
           %li= link_to "Home", root_path, class: cp(root_path)
-          %li= link_to "Shop", shop_path, class: cp(shop_path)
+          %li= link_to "Shop", books_path, class: cp(books_path)
           /%li= link_to "CART (not working)", "#", class: "#{cp(shop_path)} glyphicon glyphicon-shopping-cart"
 
         %ul.nav.navbar-nav.navbar-right  

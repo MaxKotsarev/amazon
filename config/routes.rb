@@ -1,27 +1,23 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  root 'pages#index'
-  devise_for :customers, controllers: { registrations: 'customers/registrations', 
-                                        sessions: 'customers/sessions', 
-                                        omniauth_callbacks: "customers/omniauth_callbacks" }
+  root 'pages#home'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
-  get '/shop', to: 'pages#shop'
+  devise_for :admins
+  devise_for :customers, controllers: { registrations: 'customers/registrations', 
+                                        sessions: 'customers/sessions',
+                                        passwords: 'customers/passwords', 
+                                        omniauth_callbacks: "customers/omniauth_callbacks" }
+  devise_scope :customer do
+    get '/settings', to: 'customers#settings'
+    put '/change_password', to: 'customers#change_password'
+    put '/change_personal_info', to: 'customers#change_personal_info'
+  end
+  
   resources :orders, only: [:index, :show]
-  resources :addresses, only: [:update, :create]
-
-  put '/check_params', to: "addresses#check_params"
-
-
-
-  get '/settings', to: 'settings#index'
-  put '/change_password', to: 'settings#change_password'
-  put '/change_personal_info', to: 'settings#change_personal_info'
-  
-  get '/shop/categories/:id', to: 'categories#show', as: 'category'
-  
-  get '/books/:id', to: 'books#show', as: "book"
-  
-  get '/books/:id/reviews/new', to: 'ratings#new', as: "new_rating"
-  post '/books/:id/reviews/create', to: 'ratings#create', as: "ratings"
+  resources :addresses, only: [:update, :create]  
+  resources :books, only: [:show, :index] do 
+    resources :ratings, only: [:new, :create]
+  end
+  resources :categories, only: [:show]
 end

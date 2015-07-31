@@ -15,11 +15,9 @@ class Customers::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
-
-  # protected
+  #def update
+#
+  #end
 
   # def after_resetting_password_path_for(resource)
   #   super(resource)

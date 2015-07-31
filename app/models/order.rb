@@ -35,4 +35,8 @@ class Order < ActiveRecord::Base
     end
     self.save
   end
+
+  def state_enum
+     POSSIBLE_STATES
+  end
 end

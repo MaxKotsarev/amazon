@@ -32,4 +32,12 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model Order do
+    list do
+      field :customer do
+        searchable :firstname
+      end
+    end
+  end
 end

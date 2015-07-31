@@ -5,6 +5,8 @@ describe OrderItem do
 
   it { expect(subject).to validate_presence_of(:price) }
   it { expect(subject).to validate_presence_of(:quantity) }
+  it { expect(subject).to validate_presence_of(:order) }
+  it { expect(subject).to validate_presence_of(:book) }
 
   it { expect(subject).to belong_to(:order) }
   it { expect(subject).to belong_to(:book) }

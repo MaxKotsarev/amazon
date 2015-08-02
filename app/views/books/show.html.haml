@@ -7,9 +7,10 @@
       .clearfix
         .price= number_to_currency(@book.price)
         .order-form-wrap
-          =form_tag do
-            = number_field_tag 'quantity', "1", within: 1...10, class: 'quantity-input'
-            = submit_tag "ADD TO CART", class: 'btn btn-primary' 
+          =form_tag("/orders/add_to_order", method: "put") do
+            =number_field_tag 'quantity', "1", within: 1..100, class: 'quantity-input'
+            =hidden_field_tag 'book_id', @book.id
+            =submit_tag "ADD TO CART", class: 'btn btn-primary' 
       %p= @book.short_description
       %div= @book.description
 

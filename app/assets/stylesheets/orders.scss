@@ -1,3 +1,37 @@
 // Place all the styles related to the orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.cart {
+  .table {
+    tbody {
+      background-color: #fff;
+      img {margin-right: 10px;}
+      tr td {
+        vertical-align: middle;
+        .quantity-input {
+          text-align: center;
+        }
+      }
+      .remove_link {
+        a {
+          font-size:20px;
+          font-weight: bold;
+          color: #D88484;
+          &:hover {
+            text-decoration:none;
+            color: #AF4E4E;
+          }
+        }
+      }
+    }
+  }
+  .subtotal {
+    text-align: right !important;
+    padding-right: 7.5%;
+    span {font-size: 17px; padding-left: 10px; font-weight: bold;}
+    margin-bottom: 30px;
+  }
+  .right-btns {
+    .checkout-btn {margin-left:5px; margin-right: 13%;}
+  }
+}

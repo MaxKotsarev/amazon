@@ -13,7 +13,15 @@ Rails.application.routes.draw do
     put '/change_personal_info', to: 'customers#change_personal_info'
   end
   
-  resources :orders, only: [:index, :show]
+  resources :orders, only: [:index, :show, :new, :update, :destroy] do
+    put "/add_to_order", to: "orders#add_to_order", on: :collection 
+    get '/set_address', to: 'orders#set_address'
+    get '/set_delivery', to: 'orders#set_delivery'
+    get '/set_payment', to: 'orders#set_payment'
+    get '/confirm', to: 'orders#confirm'
+    get '/complete', to: 'orders#complete'
+  end 
+  resources :order_items, only: [:destroy] 
   resources :addresses, only: [:update, :create]  
   resources :books, only: [:show, :index] do 
     resources :ratings, only: [:new, :create]

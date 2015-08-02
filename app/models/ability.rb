@@ -8,7 +8,7 @@ class Ability
         can :manage, :all
         can :access, :rails_admin   # grant access to rails_admin
         can :dashboard              # grant access to the dashboard
-      elsif user.id # existing user?
+      elsif user.id?
         can :manage, Address, id: user.billing_address_id || user.shpping_address_id 
       end
   end

@@ -13,8 +13,17 @@
         %ul.nav.navbar-nav
           %li= link_to "Home", root_path, class: cp(root_path)
           %li= link_to "Shop", books_path, class: cp(books_path)
-          /%li= link_to "CART (not working)", "#", class: "#{cp(shop_path)} glyphicon glyphicon-shopping-cart"
-
+          %li{class: "cart-lnk"}
+            = link_to new_order_path, class: cp(new_order_path) do 
+              %span{class: "glyphicon glyphicon-shopping-cart"}
+              CART:
+              -if @current_order
+                = @current_order.items_qty
+                = @current_order.items_qty > 1 ? "books -" : "book -" 
+                = number_to_currency(@current_order.total_price)
+              -else 
+                %em (empty)
+          
         %ul.nav.navbar-nav.navbar-right  
           -if current_customer   
             %li= link_to "Settings", settings_path, class: cp(settings_path)        
@@ -28,6 +37,9 @@
             %li= link_to "Sign up", new_customer_registration_path, class: cp(new_customer_registration_path)
             
     .container.notifications
+      / = @current_order.inspect
+      / %br
+      / = "current_order in sessin #{session[:current_order_id]}"
       - flash.each do |type, message|
         %div{:class => "alert #{bootstrap_class_for(type)}  alert-dismissible"}
           %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}

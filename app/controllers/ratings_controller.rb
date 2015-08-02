@@ -7,19 +7,20 @@ class RatingsController < ApplicationController
   end
 
   def create 
-    @rating = @book.ratings.build(rating_params)
-    @rating.customer = current_customer
+    @rating = @current_customer.ratings.build(rating_params)
     if @rating.save
+      #render text: rating_params.inspect
       redirect_to @book, notice: "Thank you for review! It will appear on this page after moderation. #{@rating.inspect} #{Rating.last.inspect}"
       # нужно доработать и убрать вывод созданного рейтинга.
     else 
-      render 'new'
+      render text: params.inspect    
+      #render 'new'
     end
   end
 
   private
   def rating_params
-    params.require(:rating).permit(:review, :rating_number)
+    params.require(:rating).permit(:review, :rating_number, :book_id)
   end
 
   def find_book

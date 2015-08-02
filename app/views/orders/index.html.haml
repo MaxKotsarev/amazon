@@ -1,2 +1,7 @@
 .container
   %h1 Orders
+  %p= current_customer.current_order.inspect || "no orders"
+  %h2.underlined-h2 In progress 
+  %h2.underlined-h2 Waiting for processing 
+  %h2.underlined-h2 In delivery 
+  %h2.underlined-h2 Delivered

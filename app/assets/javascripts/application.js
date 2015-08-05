@@ -26,6 +26,14 @@ ready = function() {
     singleItem:true, 
     navigationText: ["<span class='glyphicon glyphicon-chevron-left'></span>","<span class='glyphicon glyphicon-chevron-right'></span>"]
   });
+
+  if($(".checkbox-use-bill-address").is(":checked")) {
+  	$(".ship-address-form-fields").addClass("hidden");
+  } 
+
+  $('.checkbox-use-bill-address').change(function() {
+	$(".ship-address-form-fields").toggleClass("hidden");               
+  });
 };
 
 $(document).ready(ready);

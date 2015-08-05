@@ -1,0 +1,13 @@
+.row
+  .col-md-3
+    %h1 Checkout
+  .col-md-9
+    .btn-group.btn-group-justified.checkout-nav{"aria-label" => "...", :role => "group"}
+      .btn-group{:role => "group"}
+        =link_to "Address", checkout_address_orders_path, class: "btn btn-default #{cp(checkout_address_orders_path)}"
+      .btn-group{:role => "group"}
+        =link_to "Delivery", checkout_delivery_orders_path, class: "btn btn-default #{cp(checkout_delivery_orders_path)}"
+      .btn-group{:role => "group"}
+        =link_to "Payment", root_path, class: "btn btn-default #{cp(root_path)}"
+      .btn-group{:role => "group"}
+        =link_to "Confirm", root_path, class: "btn btn-default #{cp(root_path)}"

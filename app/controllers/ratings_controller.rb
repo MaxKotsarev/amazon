@@ -13,8 +13,8 @@ class RatingsController < ApplicationController
       redirect_to @book, notice: "Thank you for review! It will appear on this page after moderation. #{@rating.inspect} #{Rating.last.inspect}"
       # нужно доработать и убрать вывод созданного рейтинга.
     else 
-      render text: params.inspect    
-      #render 'new'
+      #render text: params.inspect    
+      render 'new'
     end
   end
 

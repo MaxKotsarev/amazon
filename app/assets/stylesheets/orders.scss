@@ -35,3 +35,27 @@
     .checkout-btn {margin-left:5px; margin-right: 13%;}
   }
 }
+
+.checkout {
+  .checkout-nav {
+    margin: 25px 0px 0px 0px;
+    .active {
+      box-shadow: none !important;
+    }
+  }
+  .margin-bot-add {
+    margin-bottom: 53px;
+  }
+  .summary-line {
+    font-size: 16px;
+    margin-bottom:10px;
+    max-width: 200px;
+    span {
+      font-weight: bold;
+      float:right;
+    }
+  }
+  .ship-address-form-fields .hidden {
+    display:none;
+  }
+}

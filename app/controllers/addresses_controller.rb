@@ -3,6 +3,23 @@ class AddressesController < ApplicationController
   load_and_authorize_resource
 
   def update 
+    if params[:address_type] == "shipping"
+      if current_customer.billing_address != current_customer.shipping_address && params[:use_billing_as_shipping]
+        if current_customer.billing_address
+          @address.destroy
+          current_customer.shipping_address = current_customer.billing_address
+          current_customer.save
+          flash[:success] = "Done! Now we will use your billing address also as shipping."
+          redirect_to settings_path and return
+        else
+          flash[:error] = "You can't use billing address as shipping because you don't have it yet. Pls fill in form for billing address and save it first."
+          redirect_to settings_path and return
+        end
+      elsif current_customer.billing_address == current_customer.shipping_address
+        create and return
+      end
+    end
+
     if @address.update(address_params)
       flash[:success] = "#{params[:address_type].capitalize}  address was successfully updated."
       redirect_to settings_path 
@@ -16,6 +33,7 @@ class AddressesController < ApplicationController
     if @address.save
       set_customer_address_id(params[:address_type], @address.id)
       flash[:success] = "#{params[:address_type].capitalize} address was successfully created."
+      set_customer_address_id("shipping", @address.id) if params[:address_type] == "billing" && !current_customer.shipping_address
       redirect_to settings_path 
     else
       render_settings_with_errors 

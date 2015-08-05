@@ -26,6 +26,21 @@ en:
       rating:
         rating_number: "rating"
         review: "text review"
+      checkout_address_form:
+        b_firstname: "Billing address firstname"
+        b_lastname: "Billing address lastname"
+        b_address: "Billing address street address"
+        b_city: "Billing address city"
+        b_country_id: "Billing address country"
+        b_zipcode: "Billing address zipcode"
+        b_phone: "Billing address phone"
+        s_firstname: "Shopping address firstname"
+        s_lastname: "Shopping address lastname"
+        s_address: "Shopping address street address"
+        s_city: "Shopping address city"
+        s_country_id: "Shopping address country"
+        s_zipcode: "Shopping address zipcode"
+        s_phone: "Shopping address phone"
     errors:
       models:
         rating:
@@ -33,4 +48,8 @@ en:
             rating_number:
               blank: "is required."
             review:
+              blank: "is required."
+        checkout_address_form:
+          attributes:
+            b_firstname:
               blank: "is required."

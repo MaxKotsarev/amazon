@@ -31,7 +31,7 @@
             =link_to "Empty cart", @current_order, class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" }
             =link_to "Continue shopping", books_path, class: "btn btn-primary"
           .col-md-6.right-btns 
-            =link_to "Checkout", "#", class: "btn btn-success pull-right checkout-btn"
+            =link_to "Checkout", checkout_address_orders_path, class: "btn btn-success pull-right checkout-btn"
             =submit_tag "Update", class: "btn btn-default pull-right"
 
     -else 

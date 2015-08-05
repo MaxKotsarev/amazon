@@ -27,6 +27,7 @@ gem 'omniauth-facebook'
 gem "fog"
 gem 'carrierwave-aws'
 gem "figaro"
+gem 'virtus'
 
 group :development, :test do
   gem 'byebug'

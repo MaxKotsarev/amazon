@@ -2,7 +2,7 @@
   %h1 Settings
   .row
     .col-md-6
-      %h2.underlined-h2 Billing address
+      %h2.underlined-h2.add-margin-bot Billing address
       .row
         .col-md-8
           = form_for @billing_address do |f|
@@ -24,7 +24,7 @@
               = f.text_field :city, class: "form-control"
             .form-group
               = f.label :country_id, "Country", class: "control-label"
-              = f.collection_select :country_id, @countries.order('name ASC'), :id, :name, {}, {:class => "form-control"}
+              = f.collection_select :country_id, @countries.order('name ASC'), :id, :name, {}, {class: "form-control"}
             .form-group
               = f.label :zipcode, "Zip", class: "control-label"
               = f.text_field :zipcode, class: "form-control"
@@ -33,41 +33,49 @@
               = f.text_field :phone, class: "form-control"
             =hidden_field_tag 'address_type', 'billing' 
             .form-group
-              = f.submit class: "btn btn-primary"
+              = f.submit "Save", class: "btn btn-primary"
 
     .col-md-6
       %h2.underlined-h2 Shipping address
       .row
         .col-md-8
           = form_for @shipping_address do |f|
+            .form-group
+              = check_box_tag :use_billing_as_shipping, "1", current_customer.billing_address == current_customer.shipping_address && @shipping_address.errors.empty?, class: "checkbox-use-bill-address"
+              = label_tag :use_billing_as_shipping, "Use billing address"
             -if @shipping_address.errors.any?
               %div.alert.alert-danger
                 - @shipping_address.errors.full_messages.each do |msg|
-                  %div= "- " + msg
-            .form-group
-              = f.label :firstname, "First name", class: "control-label"
-              = f.text_field :firstname, class: "form-control"
-            .form-group
-              = f.label :lastname, "Last name", class: "control-label"
-              = f.text_field :lastname, class: "form-control"
-            .form-group
-              = f.label :address, "Sreet address", class: "control-label"
-              = f.text_field :address, class: "form-control"
-            .form-group
-              = f.label :city, "City", class: "control-label"
-              = f.text_field :city, class: "form-control"
-            .form-group
-              = f.label :country_id, "Country", class: "control-label"
-              = f.collection_select :country_id, @countries.order('name ASC'), :id, :name, {}, {:class => "form-control"}
-            .form-group
-              = f.label :zipcode, "Zip", class: "control-label"
-              = f.text_field :zipcode, class: "form-control"
-            .form-group
-              = f.label :phone, "Phone", class: "control-label"
-              = f.text_field :phone, class: "form-control"
-            =hidden_field_tag 'address_type', 'shipping' 
-            .form-group
-              = f.submit class: "btn btn-primary"
+                  %div= "- " + msg 
+            .ship-address-form-fields
+              .form-group
+                = f.label :firstname, "First name", class: "control-label"
+                = f.text_field :firstname, class: "form-control"
+              .form-group
+                = f.label :lastname, "Last name", class: "control-label"
+                = f.text_field :lastname, class: "form-control"
+              .form-group
+                = f.label :address, "Sreet address", class: "control-label"
+                = f.text_field :address, class: "form-control"
+              .form-group
+                = f.label :city, "City", class: "control-label"
+                = f.text_field :city, class: "form-control"
+              .form-group
+                = f.label :country_id, "Country", class: "control-label"
+                = f.collection_select :country_id, @countries.order('name ASC'), :id, :name, {}, {class: "form-control"}
+              .form-group
+                = f.label :zipcode, "Zip", class: "control-label"
+                = f.text_field :zipcode, class: "form-control"
+              .form-group
+                = f.label :phone, "Phone", class: "control-label"
+                = f.text_field :phone, class: "form-control"
+              =hidden_field_tag 'address_type', 'shipping' 
+              -if current_customer.billing_address == current_customer.shipping_address
+                .form-group
+                  = f.submit "Save", class: "btn btn-primary"
+            -unless current_customer.billing_address == current_customer.shipping_address
+              .form-group
+                = f.submit "Save", class: "btn btn-primary"
 
   .row
     .col-md-6

@@ -4,6 +4,6 @@ class Author < ActiveRecord::Base
   validates_presence_of :firstname, :lastname
 
   def title 
-    self.firstname + " " + self.lastname
+    "#{self.firstname} #{self.lastname}"
   end 
 end

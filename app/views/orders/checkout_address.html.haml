@@ -1,0 +1,74 @@
+.container.checkout
+  =render "checkout_nav" 
+  .row
+    =form_for @checkout_address_form, url: set_address_orders_path do |f|
+      .col-md-12
+        -if @checkout_address_form.errors.any?
+          %div.alert.alert-danger
+            - @checkout_address_form.errors.full_messages.each do |msg|
+              %div= "- " + msg
+      .col-md-4
+        %h2.margin-bot-add Billing address
+        .row
+          .col-md-8
+            .form-group
+              = f.label :b_firstname, "First name", class: "control-label"
+              = f.text_field :b_firstname, class: "form-control"
+            .form-group
+              = f.label :b_lastname, "Last name", class: "control-label"
+              = f.text_field :b_lastname, class: "form-control"
+            .form-group
+              = f.label :b_address, "Sreet address", class: "control-label"
+              = f.text_field :b_address, class: "form-control"
+            .form-group
+              = f.label :b_city, "City", class: "control-label"
+              = f.text_field :b_city, class: "form-control"
+            .form-group
+              = f.label :b_country_id, "Country", class: "control-label"
+              = f.collection_select :b_country_id, @countries.order('name ASC'), :id, :name, {}, {class: "form-control"}
+            .form-group
+              = f.label :b_zipcode, "Zip", class: "control-label"
+              = f.text_field :b_zipcode, class: "form-control"
+            .form-group
+              = f.label :b_phone, "Phone", class: "control-label"
+              = f.text_field :b_phone, class: "form-control"
+      .col-md-4
+        %h2 Shipping address
+        .row
+          .col-md-8
+            .form-group
+              = f.check_box :use_billing_as_shipping, class: "checkbox-use-bill-address"
+              = f.label :use_billing_as_shipping, "Use billing address" 
+            .ship-address-form-fields      
+              .form-group
+                = f.label :s_firstname, "First name", class: "control-label"
+                = f.text_field :s_firstname, class: "form-control"
+              .form-group
+                = f.label :s_lastname, "Last name", class: "control-label"
+                = f.text_field :s_lastname, class: "form-control"
+              .form-group
+                = f.label :s_address, "Sreet address", class: "control-label"
+                = f.text_field :s_address, class: "form-control"
+              .form-group
+                = f.label :s_city, "City", class: "control-label"
+                = f.text_field :s_city, class: "form-control"
+              .form-group
+                = f.label :s_country_id, "Country", class: "control-label"
+                = f.collection_select :s_country_id, @countries.order('name ASC'), :id, :name, {}, {class: "form-control"}
+              .form-group
+                = f.label :s_zipcode, "Zip", class: "control-label"
+                = f.text_field :s_zipcode, class: "form-control"
+              .form-group
+                = f.label :s_phone, "Phone", class: "control-label"
+                = f.text_field :s_phone, class: "form-control"
+      .col-md-4
+        %h2.margin-bot-add Order summary
+        .summary-line
+          ITEM TOTAL: 
+          %span= number_to_currency(@current_order.total_price)
+        .summary-line
+          ORDER TOTAL:
+          %span= number_to_currency(@current_order.total_price) 
+      .col-md-12
+        .form-group
+          = f.submit "Save and continue", class: "btn btn-success btn-lg pull-right"

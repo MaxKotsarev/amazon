@@ -7,7 +7,7 @@
         %td QTY
         %td TOTAL
     %tbody
-      -@current_order.order_items.each_with_index do |item, index|
+      -order.order_items.each_with_index do |item, index|
         %tr
           %td
             = link_to item.book do
@@ -24,18 +24,18 @@
               = link_to item, method: :delete do 
                 %span{"aria-hidden" => "true"} &times;
 .col-md-6.col-md-offset-6.clearfix.order-summary-block
-  -@shipping_price = @current_order.delivery_type ? @current_order.delivery_type.price : 0
+  -@shipping_price = order.delivery_type ? order.delivery_type.price : 0
   .order-summary-line
     SUBTOTAL: 
-    %span=number_to_currency(@current_order.total_price - @shipping_price)
+    %span=number_to_currency(order.total_price - @shipping_price)
   -unless current_page?(new_order_path) || current_page?(orders_path)
     .order-summary-line
       SHIPPING: 
       %span
-        -if @current_order.delivery_type
+        -if order.delivery_type
           =number_to_currency(@shipping_price)
         -else
           %em not specified 
     .order-summary-line.main
       ORDER TOTAL: 
-      %span= number_to_currency(@current_order.total_price)
+      %span= number_to_currency(order.total_price)

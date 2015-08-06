@@ -1,0 +1,18 @@
+%table{class: "table"}
+  %thead
+    %tr
+      %td NUMBER
+      %td COMPLETED AT
+      %td TOTAL
+      %td DETAILS
+  %tbody
+    -orders.each do |order|
+      %tr
+        %td
+          =order.id
+        %td
+          =order.completed_date.strftime("%Y-%m-%d")
+        %td
+          =number_to_currency(order.total_price)
+        %td
+          =link_to "view", order

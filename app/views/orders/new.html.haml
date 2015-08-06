@@ -3,7 +3,7 @@
   .row.cart  
     -if @current_order
       =form_tag '/orders/:id', method: :put do
-        =render "order_items_list"
+        =render partial: "order_items_list", locals: {order: @current_order}
         .col-md-6
           =link_to "Empty cart", @current_order, class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" }
           =link_to "Continue shopping", books_path, class: "btn btn-primary"

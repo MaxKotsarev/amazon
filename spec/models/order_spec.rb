@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Order do
   subject { FactoryGirl.create :order }
 
-  it { expect(subject).to validate_inclusion_of(:state).in_array(['in progress','completed','shipped']) }
+  it { expect(subject).to validate_inclusion_of(:state).in_array(['in progress', 'completed', 'in delivery', 'delivered', 'canceled']) }
   context "order state not 'completed'" do
     it { expect(subject).not_to validate_presence_of(:completed_date) }
   end

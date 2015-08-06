@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
-  POSSIBLE_STATES = ['in progress','completed','shipped']
+  default_scope { order('id DESC') }  
+  POSSIBLE_STATES = ['in progress', 'completed', 'in delivery', 'delivered', 'canceled']
 
   belongs_to :customer
   belongs_to :credit_card
@@ -18,6 +19,9 @@ class Order < ActiveRecord::Base
   end
 
   scope :in_progress, -> {where(state: POSSIBLE_STATES[0])}
+  scope :completed, -> {where(state: POSSIBLE_STATES[1])}
+  scope :in_delivery, -> {where(state: POSSIBLE_STATES[2])}
+  scope :delivered, -> {where(state: POSSIBLE_STATES[3])}
 
   def add_to_order(book, quantity=1)  
     if order_item = self.order_items.find_by(book: book)

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :check_current_order, only: [:checkout_address, :checkout_delivery, :checkout_payment, :checkout_confirm]
+  before_action :check_current_order, only: [:checkout_address, :checkout_delivery, :checkout_payment, :checkout_confirm, :checkout_complete]
   before_action :fetch_countries, only: [:checkout_address, :set_address]
 
   def new #cart   
@@ -9,6 +9,8 @@ class OrdersController < ApplicationController
   end
 
   def show #one order
+    @order = Order.find(params[:id])
+    authorize! :read, @order
   end
 
   def update #update cart
@@ -77,7 +79,7 @@ class OrdersController < ApplicationController
       CreditCard.new
     end
   end 
-  #credit card form sends data to credit_cards controller
+  #(form on this step sends data to CreditCards controller)
 
   #step 4
   def checkout_confirm
@@ -85,9 +87,9 @@ class OrdersController < ApplicationController
 
   #step 5
   def checkout_complete
-    @current_order.state = "comleted"
+    @current_order.update(state: Order::POSSIBLE_STATES[1], completed_date: Date.today)
     @order = @current_order
-    #session[:current_order_id] = nil
+    session[:current_order_id] = nil
     render "show"
   end 
 

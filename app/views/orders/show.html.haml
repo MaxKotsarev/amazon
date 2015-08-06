@@ -9,8 +9,8 @@
         -if current_page?(checkout_complete_orders_path)
           ="Congrats! Your order ##{@order.id} was successfully placed."
           %br/
-          %small Will call you soon to confirm it. 
+          %small We'll call you soon to confirm it. 
         -else
           Order #
-          @order.id
-  =render "order_details"
+          =@order.id
+  =render partial: "order_details", locals: {order: @order}

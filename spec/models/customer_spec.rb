@@ -10,6 +10,7 @@ describe Customer do
 
   it { expect(subject).to have_many(:ratings) }
   it { expect(subject).to have_many(:orders) }
+  it { expect(subject).to have_one(:credit_card) }
   it { expect(subject).to belong_to(:billing_address) }
   it { expect(subject).to belong_to(:shipping_address) }
 

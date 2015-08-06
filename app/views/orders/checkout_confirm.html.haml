@@ -1,0 +1,10 @@
+.container.checkout
+  =render "checkout_nav" 
+  .row
+    .col-md-12
+      %h2 Confirm
+  =render "order_details"
+  .row
+    .col-md-4.col-md-offset-8
+      = link_to "Place order", checkout_complete_orders_path, class: "btn btn-success btn-lg"
+      

@@ -31,6 +31,7 @@ describe Order do
   it { expect(subject).to belong_to(:credit_card) }
   it { expect(subject).to belong_to(:billing_address) }
   it { expect(subject).to belong_to(:shipping_address) }
+  it { expect(subject).to belong_to(:delivery_type) }
 
   it "should have default state 'in progress' after creation" do
     order = Order.create

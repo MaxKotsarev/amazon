@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :customer
   belongs_to :credit_card
+  belongs_to :delivery_type
   belongs_to :billing_address, class_name: "Address"
   belongs_to :shipping_address, class_name: "Address"
   
@@ -35,7 +36,9 @@ class Order < ActiveRecord::Base
 
   def calc_and_set_total_price
     if self.order_items.any?
-      self.total_price = self.order_items.inject(0) {|sum, i| sum + i.price*i.quantity} 
+      item_total = self.order_items.inject(0) {|sum, i| sum + i.price*i.quantity} 
+      shipping_price = self.delivery_type ? self.delivery_type.price : 0 
+      self.total_price = item_total + shipping_price
     else 
       self.total_price = 0
     end

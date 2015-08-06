@@ -44,30 +44,40 @@ class OrdersController < ApplicationController
   end 
 
   def set_address
-    #render text: params 
-#=begin
     @checkout_address_form = CheckoutAddressForm.new(checkout_address_form_params)
     if @checkout_address_form.save(@current_order, current_customer)
-      redirect_to checkout_delivery_orders_path
+      redirect_to action: "checkout_delivery"
     else
       render "checkout_address"
     end
-#=end
   end 
 
   #step 2
   def checkout_delivery
+    @delivery_types = DeliveryType.all
   end 
 
   def set_delivery
+    if @current_order.update(delivery_type_id: params[:delivery_type])
+      @current_order.calc_and_set_total_price
+      redirect_to action: "checkout_payment"
+    else
+      @delivery_types = DeliveryType.all
+      render "checkout_delivery"
+    end
   end 
 
   #step 3
   def checkout_payment
+    @credit_card = if current_order.credit_card
+      current_order.credit_card
+    elsif current_customer
+      CreditCard.new(firstname: current_customer.firstname, lastname: current_customer.lastname)
+    else
+      CreditCard.new
+    end
   end 
-
-  def set_payment
-  end 
+  #credit card form sends data to credit_cards controller
 
   #step 4
   def checkout_confirm
@@ -75,6 +85,10 @@ class OrdersController < ApplicationController
 
   #step 5
   def checkout_complete
+    @current_order.state = "comleted"
+    @order = @current_order
+    #session[:current_order_id] = nil
+    render "show"
   end 
 
 

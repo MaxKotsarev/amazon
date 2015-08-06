@@ -18,12 +18,14 @@ Rails.application.routes.draw do
     get '/checkout_address', to: 'orders#checkout_address', on: :collection 
     post '/set_address', to: 'orders#set_address', on: :collection 
     get '/checkout_delivery', to: 'orders#checkout_delivery', on: :collection 
-    #get '/set_delivery', to: 'orders#set_delivery'
-    #get '/set_payment', to: 'orders#set_payment'
-    #get '/confirm', to: 'orders#confirm'
-    #get '/complete', to: 'orders#complete'
+    put '/set_delivery', to: 'orders#set_delivery', on: :collection 
+    get '/checkout_payment', to: 'orders#checkout_payment', on: :collection 
+    get '/checkout_confirm', to: 'orders#checkout_confirm', on: :collection 
+    get '/checkout_complete', to: 'orders#checkout_complete', on: :collection 
   end 
+  
   resources :order_items, only: [:destroy] 
+  resources :credit_cards, only: [:create, :update] 
   resources :addresses, only: [:update, :create]  
   resources :books, only: [:show, :index] do 
     resources :ratings, only: [:new, :create]

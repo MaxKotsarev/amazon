@@ -7,6 +7,7 @@ class Customer < ActiveRecord::Base
          
   has_many :orders
   has_many :ratings, dependent: :destroy
+  has_one :credit_card
 
   belongs_to :billing_address, class_name: "Address"
   belongs_to :shipping_address, class_name: "Address"

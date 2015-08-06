@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723125639) do
+ActiveRecord::Schema.define(version: 20150805145916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,13 @@ ActiveRecord::Schema.define(version: 20150723125639) do
   add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
   add_index "customers", ["shipping_address_id"], name: "index_customers_on_shipping_address_id", using: :btree
 
+  create_table "delivery_types", force: :cascade do |t|
+    t.string   "title"
+    t.decimal  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.decimal  "price"
     t.integer  "quantity"
@@ -146,11 +153,13 @@ ActiveRecord::Schema.define(version: 20150723125639) do
     t.datetime "updated_at",          null: false
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
+    t.integer  "delivery_type_id"
   end
 
   add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["delivery_type_id"], name: "index_orders_on_delivery_type_id", using: :btree
   add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|

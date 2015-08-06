@@ -61,14 +61,7 @@
               .form-group
                 = f.label :s_phone, "Phone", class: "control-label"
                 = f.text_field :s_phone, class: "form-control"
-      .col-md-4
-        %h2.margin-bot-add Order summary
-        .summary-line
-          ITEM TOTAL: 
-          %span= number_to_currency(@current_order.total_price)
-        .summary-line
-          ORDER TOTAL:
-          %span= number_to_currency(@current_order.total_price) 
-      .col-md-12
+      =render "order_summary"    
+      .col-md-4.col-md-offset-8
         .form-group
-          = f.submit "Save and continue", class: "btn btn-success btn-lg pull-right"
+          = submit_tag "Save and continue", class: "btn btn-success btn-lg"

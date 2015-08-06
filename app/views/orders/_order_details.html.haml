@@ -1,0 +1,43 @@
+.row
+  .col-md-3
+    %h3 
+      Shipping address
+      -if current_page?(checkout_confirm_orders_path)  
+        %small= link_to "(edit)", checkout_address_orders_path
+    %div= "#{@current_order.shipping_address.firstname} #{@current_order.shipping_address.lastname}"
+    %div= @current_order.shipping_address.address
+    %div= "#{@current_order.shipping_address.city} #{@current_order.shipping_address.zipcode}"
+    %div= @current_order.shipping_address.country.name
+    %div= "Phone: #{@current_order.shipping_address.phone}"
+  .col-md-3
+    %h3 
+      Billing address 
+      -if current_page?(checkout_confirm_orders_path) 
+        %small= link_to "(edit)", checkout_address_orders_path
+    %div= "#{@current_order.billing_address.firstname} #{@current_order.billing_address.lastname}"
+    %div= @current_order.billing_address.address
+    %div= "#{@current_order.billing_address.city} #{@current_order.billing_address.zipcode}"
+    %div= @current_order.billing_address.country.name
+    %div= "Phone: #{@current_order.billing_address.phone}"
+  .col-md-3
+    %h3 
+      Shipments 
+      -if current_page?(checkout_confirm_orders_path) 
+        %small= link_to "(edit)", checkout_delivery_orders_path
+    %div= "#{@current_order.delivery_type.title} (#{number_to_currency(@current_order.delivery_type.price)})"
+  .col-md-3
+    %h3 
+      Payment information 
+      -if current_page?(checkout_confirm_orders_path)
+        %small= link_to "(edit)", checkout_payment_orders_path
+    %div= "**** **** **** #{@current_order.credit_card.number.split("").last(4).join("")}"
+    %div= "#{@current_order.credit_card.exp_month}/20#{@current_order.credit_card.exp_year}"
+.row.cart
+  .col-md-12
+    %br/ 
+    %h3 
+      Order items
+      -if current_page?(checkout_confirm_orders_path) 
+        %small= link_to "(edit)", new_order_path
+  =render "order_items_list"
+    

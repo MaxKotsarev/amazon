@@ -3,36 +3,13 @@
   .row.cart  
     -if @current_order
       =form_tag '/orders/:id', method: :put do
-        %table{class: "table"}
-          %thead
-            %tr
-              %td BOOK
-              %td PRICE
-              %td QTY
-              %td TOTAL
-          %tbody
-            -@current_order.order_items.each_with_index do |item, index|
-              %tr
-                %td
-                  = link_to item.book do
-                    = image_tag item.book.image.thumb_small.url.to_s 
-                    = item.book.title
-                %td= number_to_currency(item.book.price)
-                %td= number_field_tag "item-#{index}", item.quantity, within: 1..100, class: 'quantity-input'
-                %td= number_to_currency(item.book.price * item.quantity)
-                %td{class: "remove_link"}
-                  = link_to item, method: :delete do 
-                    %span{"aria-hidden" => "true"} &times; 
-        .col-md-3.col-md-offset-9.subtotal.clearfix
-          SUBTOTAL: 
-          %span= number_to_currency(@current_order.total_price)
-        .row
-          .col-md-6
-            =link_to "Empty cart", @current_order, class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" }
-            =link_to "Continue shopping", books_path, class: "btn btn-primary"
-          .col-md-6.right-btns 
-            =link_to "Checkout", checkout_address_orders_path, class: "btn btn-success pull-right checkout-btn"
-            =submit_tag "Update", class: "btn btn-default pull-right"
+        =render "order_items_list"
+        .col-md-6
+          =link_to "Empty cart", @current_order, class: "btn btn-default", method: :delete, data: { confirm: "Are you sure?" }
+          =link_to "Continue shopping", books_path, class: "btn btn-primary"
+        .col-md-6.right-btns 
+          =link_to "Checkout", checkout_address_orders_path, class: "btn btn-success pull-right checkout-btn"
+          =submit_tag "Update", class: "btn btn-default pull-right"
 
     -else 
       .col-md-12 

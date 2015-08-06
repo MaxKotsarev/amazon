@@ -25,11 +25,15 @@
       }
     }
   }
-  .subtotal {
-    text-align: right !important;
-    padding-right: 7.5%;
-    span {font-size: 17px; padding-left: 10px; font-weight: bold;}
-    margin-bottom: 30px;
+  .order-summary-block {
+    margin-bottom:20px;
+    .order-summary-line {
+      margin-right:17%;
+      text-align: right !important;
+      span {padding-left: 10px; display: inline-block; min-width:50px;}
+      &.main {font-weight: bold;}
+      margin-bottom: 10px;
+    }
   }
   .right-btns {
     .checkout-btn {margin-left:5px; margin-right: 13%;}
@@ -58,4 +62,8 @@
   .ship-address-form-fields .hidden {
     display:none;
   }
+  .radio {
+    padding: 0px 0px 6px 50px 
+  }
+  .cvv-field {width: 70px;}
 }

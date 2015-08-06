@@ -1,0 +1,12 @@
+.col-md-4
+  %h2.margin-bot-add Order summary
+  .summary-line
+    ITEM TOTAL: 
+    %span= number_to_currency(@current_order.total_price)
+  .summary-line
+    SHIPPING: 
+    %span
+      =@current_order.delivery_type ? number_to_currency(@current_order.delivery_type.price) : "not specified"
+  .summary-line
+    ORDER TOTAL:
+    %span= number_to_currency(@current_order.total_price) 

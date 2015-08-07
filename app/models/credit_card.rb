@@ -1,5 +1,5 @@
 class CreditCard < ActiveRecord::Base
-  POSSIBLE_EXP_MONTHES = ["01","02","03","04","05","06","07","08","09","11","12"]
+  POSSIBLE_EXP_MONTHES = ["01","02","03","04","05","06","07","08","09","10","11","12"]
   POSSIBLE_EXP_YEARS = []
   (0..15).each do |i|
     POSSIBLE_EXP_YEARS << (Date.today.year.to_s.split("").last(2).join("").to_i + i).to_s

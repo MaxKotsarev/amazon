@@ -6,25 +6,26 @@
       -if @current_order
         %h2.underlined-h2 In progress
         .row.cart
-          =render "order_items_list"
+          =render partial: "order_items_list", locals: {order: @current_order}
         =link_to "Go to cart", new_order_path, class: "btn btn-primary lnk-to-cart"
+      
+      -if current_customer
+        -if current_customer.orders.completed.any?
+          %h2.underlined-h2 Waiting for processing
+          =render partial: "orders_table", locals: {orders: current_customer.orders.completed}
 
-      -if current_customer.orders.completed.any?
-        %h2.underlined-h2 Waiting for processing
-        =render partial: "orders_table", locals: {orders: current_customer.orders.completed}
+        -if current_customer.orders.in_delivery.any?
+          %h2.underlined-h2 In delivery
+          =render partial: "orders_table", locals: {orders: current_customer.orders.in_delivery} 
 
-      -if current_customer.orders.in_delivery.any?
-        %h2.underlined-h2 In delivery
-        =render partial: "orders_table", locals: {orders: current_customer.orders.in_delivery} 
+        -if current_customer.orders.delivered.any?
+          %h2.underlined-h2 Delivered
+          =render partial: "orders_table", locals: {orders: current_customer.orders.delivered}
 
-      -if current_customer.orders.delivered.any?
-        %h2.underlined-h2 Delivered
-        =render partial: "orders_table", locals: {orders: current_customer.orders.delivered}
-
-      -if current_customer.orders.empty?
-        %p 
-          You have no orders. Go to 
-          =link_to "shop", books_path
-          , find book you wish and click "Order" button.
+        -if current_customer.orders.empty?
+          %p 
+            You have no orders. Go to 
+            =link_to "shop", books_path
+            , find book you wish and click "Order" button.
 
       

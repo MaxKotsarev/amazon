@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :check_current_order, only: [:checkout_address, :checkout_delivery, :checkout_payment, :checkout_confirm, :checkout_complete]
   before_action :fetch_countries, only: [:checkout_address, :set_address]
+  before_action :authenticate_customer!, only: [:index]
 
   def new #cart   
   end

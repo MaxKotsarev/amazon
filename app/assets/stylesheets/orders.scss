@@ -41,8 +41,91 @@
 }
 
 .checkout {
+  .checkout-h1 {
+    margin-top: 50px;
+  }
   .checkout-nav {
-    margin: 25px 0px 0px 0px;
+    margin: 20px 0px 40px 0px;
+    .checkout-nav-lnk-wrap {
+      a {text-decoration: none;}
+      width: 25%;
+      float:left;
+      .text-lnk {
+        text-align: center;
+        color: #71A9D7;
+        font-size: 15px;
+      }
+      .progress-line {
+        margin-top: 20px;
+        height: 20px;
+        background-color: #D0E3F2;
+        position: relative;
+        .step-cercle {
+          background-color: #D0E3F2;
+          border-radius: 100%;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top:-10px;
+          left: 42%;
+          text-align: center;
+          span.step-number {
+            font-size: 16px;
+            color: #8EB4E1;
+            display:inline-block;
+            font-weight: bold;
+            margin-top:10px;
+          }
+          span.step-done-icon {
+            display: none;
+          }
+        }
+      }
+      &:hover {
+        .text-lnk {color: #629FD2; text-decoration: none;}
+        .progress-line {
+          background-color: #C2DBEF;
+          .step-cercle {
+            background-color: #C2DBEF;
+          }
+        }
+      }
+      &.done {
+        .text-lnk {color: #AAAAAA;}
+        .progress-line {
+          background-color: #5CB85C;
+          .step-cercle {
+            background-color: #5CB85C;
+            span.step-number {
+              display: none;
+            }
+            span.step-done-icon {
+              display: inline-block;
+              margin-top: 12px;
+              color: #C9E7C9;
+            }
+          }
+        }
+      }
+      &.active {
+        .text-lnk {color: #3075AD;}
+        .progress-line {
+          background-color: #609ED2;
+          .step-cercle {
+            background-color: #609ED2;
+            span.step-number {
+              color: #E4EDF8;
+            }
+          }
+        }
+      }
+      &:first-child {
+        .progress-line {border-radius: 5px 0px 0px 5px;}
+      }
+      &:last-child {
+        .progress-line {border-radius: 0px 5px 5px 0px;}
+      }
+    }
     .active {
       box-shadow: none !important;
     }

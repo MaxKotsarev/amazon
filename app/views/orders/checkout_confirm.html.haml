@@ -1,10 +1,14 @@
 .container.checkout
   =render "checkout_nav" 
-  .row
-    .col-md-12
-      %h2 Confirm
-  =render partial: "order_details", locals: {order: @current_order}
-  .row
-    .col-md-4.col-md-offset-8
-      = link_to "Place order", checkout_complete_orders_path, class: "btn btn-success btn-lg"
+  -if @current_order.billing_address && @current_order.delivery_type && @current_order.credit_card
+    .row
+      .col-md-12
+        %h2 Confirm
+
+    =render partial: "order_details", locals: {order: @current_order}
+    .row
+      .col-md-4.col-md-offset-8
+        = link_to "Place order", checkout_complete_orders_path, class: "btn btn-success btn-lg"
+  -else
+    %h2 Please, complete all previous steps.  
       

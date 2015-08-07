@@ -13,4 +13,9 @@ end
 # create first admin user
 Admin.delete_all
 Admin.create(email: "admin@gmail.com", password: "password")
+
+DeliveryType.delete_all
+DeliveryType.create(title: "Take from our office", price: 0)
+DeliveryType.create(title: "UPS two day", price: 10)
+DeliveryType.create(title: "UPS one day", price: 20)
  

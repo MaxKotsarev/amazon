@@ -14,9 +14,9 @@ describe CreditCard do
   it { expect(subject).not_to allow_value('FG3412Re1234aded').for(:number) }
   it { expect(subject).to allow_value('123', '560').for(:cvv) }
   it { expect(subject).not_to allow_value('1234', "23", "df3").for(:cvv) }
-  it { expect(subject).to allow_value('15', '34', '55', '99').for(:exp_year) }
-  it { expect(subject).not_to allow_value('5', '100', 'fd').for(:exp_year) }
-  it { expect(subject).to allow_value('01', '12', '07').for(:exp_month) }
+  it { expect(subject).to allow_value('18', '30', '22').for(:exp_year) }
+  it { expect(subject).not_to allow_value('5','2015', '14', '33').for(:exp_year) }
+  it { expect(subject).to allow_value("01","02","03","04","05","06","07","08","09","11","12").for(:exp_month) }
   it { expect(subject).not_to allow_value('5', '34', '324', "2d", "14").for(:exp_month) }
 
   it { expect(subject).to validate_length_of(:number).is_equal_to(16) }

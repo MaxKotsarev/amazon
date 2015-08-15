@@ -1,7 +1,7 @@
 require 'features/features_spec_helper'
  
-feature "Registration" do
-  scenario "Visitor registers successfully via register form" do
+feature "Customers registration" do
+  scenario "Customers registers successfully via register form" do
     visit new_customer_registration_path
     within '#new_customer' do
       fill_in 'First name', with: Faker::Name.first_name
@@ -16,25 +16,17 @@ feature "Registration" do
     expect(page).to have_content 'Welcome! You have signed up successfully.'
   end
 
-  xscenario "Visitor signs in" do
-    visit root_path
-    user = FactoryGirl.create(:user)
-    sign_in(user, :scope => :user)
-
-    expect(page).not_to have_content 'Sign up'
-    expect(page).to have_content 'Sign out'
-    expect(page).to have_content 'Signed in successfully'
-  end
-
-  xscenario "Visitor signs out" do
-    visit root_path
-    user = FactoryGirl.create(:user)
-    login_as(user)
-    click_link('Sign out')
-
+  scenario "Customers trying to register without filling any field in register form" do
+    visit new_customer_registration_path
+    within '#new_customer' do
+      click_button('Sign up')
+    end
     expect(page).not_to have_content 'Sign out'
     expect(page).to have_content 'Sign up'
-    expect(page).to have_content 'Sign in'
-    expect(page).to have_content 'Signed out successfully.'
+    expect(page).to have_content "Email can't be blank"
+    expect(page).to have_content "Password can't be blank"
+    expect(page).to have_content "Firstname can't be blank"
+    expect(page).to have_content "Lastname can't be blank"
+    expect(page).to have_content "Encrypted password can't be blank"
   end
 end

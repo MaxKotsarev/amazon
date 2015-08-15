@@ -2,6 +2,12 @@ class CheckoutAddressForm
   include ActiveModel::Model
   include Virtus
 
+  class << self
+    def i18n_scope
+      :activerecord
+    end
+  end
+
   # Attributes (DSL provided by Virtus)
   #fields for billing address
   attribute :b_firstname, String

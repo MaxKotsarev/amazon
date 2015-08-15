@@ -9,6 +9,6 @@ class BooksController < ApplicationController
     #не выбирает ничего (даже книгу), если у книги нет за-апрувленных рейтенгов :(
     #как это сделать красиво? (одним запросом)
     @book = Book.find(params[:id])
-    #@book.ratings = Rating.all.where(book: @book, approved: true)
+    @ratings = @book.ratings.approved
   end
 end

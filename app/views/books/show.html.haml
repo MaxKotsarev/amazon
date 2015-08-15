@@ -20,8 +20,8 @@
     .col-md-9.add-review-lnk
       =link_to "Add review for this book", new_book_rating_path(@book)
     .col-md-12
-      -if @book.ratings.any?
-        -@book.ratings.each do |rating|
+      -if @ratings.any?
+        -@ratings.each do |rating|
           .review
             %span.star-rating
               -(1..5).each do |i|

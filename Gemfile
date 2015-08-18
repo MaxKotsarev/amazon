@@ -28,6 +28,7 @@ gem "fog"
 gem 'carrierwave-aws'
 gem "figaro"
 gem 'virtus'
+gem 'aasm'
 
 group :development, :test do
   gem 'byebug'

@@ -1,6 +1,20 @@
 class Order < ActiveRecord::Base
-  default_scope { order('id DESC') }  
-  POSSIBLE_STATES = ['in progress', 'completed', 'in delivery', 'delivered', 'canceled']
+  include AASM
+  
+  POSSIBLE_STATES = ['in_progress', 'completed', 'in_delivery', 'delivered', 'canceled']
+  aasm column: "state" do
+    state POSSIBLE_STATES[0].to_sym, initial: true
+    state POSSIBLE_STATES[1].to_sym, after_enter: :set_completed_date
+    state POSSIBLE_STATES[2].to_sym
+    state POSSIBLE_STATES[3].to_sym
+    state POSSIBLE_STATES[4].to_sym
+
+    event :complete do
+      transitions from: POSSIBLE_STATES[0].to_sym, to: POSSIBLE_STATES[1].to_sym
+    end
+  end
+
+  default_scope { order('id DESC') } 
 
   belongs_to :customer
   belongs_to :credit_card
@@ -13,15 +27,6 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :completed_date, if: -> {self.state == POSSIBLE_STATES[1]}
   validates :state, inclusion: { in: POSSIBLE_STATES }, presence: true
-
-  after_initialize do
-    self.state ||= POSSIBLE_STATES[0]
-  end
-
-  scope :in_progress, -> {where(state: POSSIBLE_STATES[0])}
-  scope :completed, -> {where(state: POSSIBLE_STATES[1])}
-  scope :in_delivery, -> {where(state: POSSIBLE_STATES[2])}
-  scope :delivered, -> {where(state: POSSIBLE_STATES[3])}
 
   def add_to_order(book, quantity=1)  
     if order_item = self.order_items.find_by(book: book)
@@ -55,5 +60,9 @@ class Order < ActiveRecord::Base
 
   def state_enum
     POSSIBLE_STATES
+  end
+
+  def set_completed_date
+    self.update(completed_date: Date.today)
   end
 end

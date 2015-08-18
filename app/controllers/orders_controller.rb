@@ -88,7 +88,7 @@ class OrdersController < ApplicationController
 
   #step 5
   def checkout_complete
-    @current_order.update(state: Order::POSSIBLE_STATES[1], completed_date: Date.today)
+    @current_order.complete
     @order = @current_order
     session[:current_order_id] = nil
     render "show"

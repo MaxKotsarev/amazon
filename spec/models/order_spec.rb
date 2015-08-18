@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Order do
   subject { FactoryGirl.create :order }
 
-  it { expect(subject).to validate_inclusion_of(:state).in_array(['in progress', 'completed', 'in delivery', 'delivered', 'canceled']) }
+  it { expect(subject).to validate_inclusion_of(:state).in_array(['in_progress', 'completed', 'in_delivery', 'delivered', 'canceled']) }
   context "order state not 'completed'" do
     it { expect(subject).not_to validate_presence_of(:completed_date) }
   end
@@ -14,14 +14,14 @@ describe Order do
   context ".in_progress" do
     before do
       @comleted_orders = FactoryGirl.create_list(:order, 3, state: 'completed')
-      @orders_in_progress = FactoryGirl.create_list(:order, 3, state: 'in progress')
+      @orders_in_progress = FactoryGirl.create_list(:order, 3, state: 'in_progress')
     end
   
-    it "returns list of orders with state 'in progress'" do
+    it "returns list of orders with state 'in_progress'" do
       expect(Order.in_progress).to match_array(@orders_in_progress)
     end
   
-    it "doesn't returns orders whith not 'in progress' state" do
+    it "doesn't returns orders whith not 'in_progress' state" do
       expect(Order.in_progress).not_to match_array(@comleted_orders)
     end
   end
@@ -33,9 +33,9 @@ describe Order do
   it { expect(subject).to belong_to(:shipping_address) }
   it { expect(subject).to belong_to(:delivery_type) }
 
-  it "should have default state 'in progress' after creation" do
+  it "should have default state 'in_progress' after creation" do
     order = Order.create
-  	expect(order.state).to eq "in progress"
+  	expect(order.state).to eq "in_progress"
   end
 
   describe "#add_to_order(book, quantity=1)" do 

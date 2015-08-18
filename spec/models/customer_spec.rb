@@ -31,7 +31,7 @@ describe Customer do
   describe "#current_order" do 
     before {@customer = FactoryGirl.create :customer}
     it "returns last current order in progress" do
-      order =  FactoryGirl.create(:order, customer: @customer, state: "in progress")
+      order =  FactoryGirl.create(:order, customer: @customer, state: "in_progress")
       expect(@customer.current_order).to eq order
     end
     it "doesn't return orders with state not 'in progress'" do 

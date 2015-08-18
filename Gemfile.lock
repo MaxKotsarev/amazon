@@ -74,6 +74,8 @@ GEM
     carrierwave-aws (0.7.1)
       aws-sdk (~> 1.58)
       carrierwave (~> 0.7)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coffee-rails (4.1.0)
@@ -96,6 +98,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     equalizer (0.0.11)
     erubis (2.7.0)
     excon (0.45.4)
@@ -352,6 +355,11 @@ GEM
       rdoc (~> 4.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -394,6 +402,7 @@ DEPENDENCIES
   capybara
   carrierwave (~> 0.10.0)
   carrierwave-aws
+  codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise (~> 3.4.0)

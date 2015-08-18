@@ -1,0 +1,12 @@
+language: ruby
+cache: bundler
+sudo: false
+before_install:
+  - gem install bundler
+notifications:
+  email:
+    on_failure: never
+    on_success: never
+addons:
+  code_climate:
+    repo_token: ba5f4633187a2544cb80e304aabbbf865ad33fee23db57c89a0da48e78327c9c

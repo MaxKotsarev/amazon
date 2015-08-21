@@ -9,7 +9,7 @@
       - @rating.errors.full_messages.each do |msg|
         %div= "- " + msg
 
-  =form_for @rating, url: book_ratings_path do |f|
+  =form_for @rating, url: book_ratings_path(@book) do |f|
     .form-group 
       =f.label :rating_number, "Rating:", class: "control-label"
       %span.star-rating

@@ -4,6 +4,7 @@ class RatingsController < ApplicationController
   
   def new
     @rating = Rating.new
+    render 'new'
   end
 
   def create 

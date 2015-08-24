@@ -4,11 +4,10 @@ class RatingsController < ApplicationController
   
   def new
     @rating = Rating.new
-    render 'new'
   end
 
   def create 
-    @rating = @current_customer.ratings.build(rating_params)
+    @rating = current_customer.ratings.build(rating_params)
     if @rating.save
       redirect_to @book, notice: "Thank you for review! It will appear on this page after moderation."
     else    

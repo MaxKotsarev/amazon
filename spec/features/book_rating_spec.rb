@@ -1,7 +1,7 @@
 require 'features/features_spec_helper'
  
 feature "Book ratings" do
-  given(:book) { FactoryGirl.build_stubbed(:book) }
+  given(:book) { FactoryGirl.create(:book) }
   given(:customer) { FactoryGirl.create(:customer) }
 
   context "Guest user" do 

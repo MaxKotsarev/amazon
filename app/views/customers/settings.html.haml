@@ -5,7 +5,7 @@
       %h2.underlined-h2.add-margin-bot Billing address
       .row
         .col-md-8
-          = form_for @billing_address do |f|
+          = form_for @billing_address, html: {class: "billing-address-form"} do |f|
             -if @billing_address.errors.any?
               %div.alert.alert-danger
                 - @billing_address.errors.full_messages.each do |msg|
@@ -39,7 +39,7 @@
       %h2.underlined-h2 Shipping address
       .row
         .col-md-8
-          = form_for @shipping_address do |f|
+          = form_for @shipping_address, html: {class: "shipping-address-form"} do |f|
             .form-group
               = check_box_tag :use_billing_as_shipping, "1", current_customer.billing_address == current_customer.shipping_address && @shipping_address.errors.empty?, class: "checkbox-use-bill-address"
               = label_tag :use_billing_as_shipping, "Use billing address"

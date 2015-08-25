@@ -40,6 +40,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem "capybara-webkit"
   gem 'faker'
   gem 'database_cleaner'
   gem 'shoulda-matchers'

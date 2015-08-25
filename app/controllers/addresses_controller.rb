@@ -3,6 +3,7 @@ class AddressesController < ApplicationController
   load_and_authorize_resource
 
   def update 
+    #@address = Address.find(params[:id])
     if params[:address_type] == "shipping"
       if current_customer.billing_address != current_customer.shipping_address && params[:use_billing_as_shipping]
         if current_customer.billing_address

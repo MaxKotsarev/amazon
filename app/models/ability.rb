@@ -9,7 +9,7 @@ class Ability
         can :access, :rails_admin   # grant access to rails_admin
         can :dashboard              # grant access to the dashboard
       elsif user.id?
-        can :manage, Address, id: user.billing_address_id || user.shipping_address_id 
+        can :manage, Address, id: [user.billing_address_id, user.shipping_address_id] 
         can :read, Order, customer_id: user.id
       end
   end

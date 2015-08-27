@@ -4,7 +4,7 @@ feature "Book ratings" do
   given(:book) { FactoryGirl.create(:book) }
   given(:customer) { FactoryGirl.create(:customer) }
 
-  context "Guest user", js: true do 
+  context "Guest user" do 
     scenario "Loged in user tries to add review and get redirected to the login-page" do  
       visit new_book_rating_path(book)
       expect(page).to have_content 'You need to sign in or sign up before continuing.'
@@ -18,7 +18,7 @@ feature "Book ratings" do
       visit new_book_rating_path(book)
     end
 
-    scenario "successfully adds review via form", js: true do
+    scenario "successfully adds review via form" do
       within '#new_rating' do
         choose('rating_rating_number_2')
         fill_in 'Text:', with: Faker::Lorem.sentence
@@ -27,7 +27,7 @@ feature "Book ratings" do
       expect(page).to have_content 'Thank you for review! It will appear on this page after moderation.'
     end
 
-    scenario "tries to add review without filling form and gets errors", js: true do
+    scenario "tries to add review without filling form and gets errors" do
       within '#new_rating' do
         click_button('Add review')
       end

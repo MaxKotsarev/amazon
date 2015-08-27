@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe RatingsController, type: :controller do
-  let(:book) { FactoryGirl.build_stubbed(:book) }
+  let(:book) { FactoryGirl.create(:book) }
   let(:rating_params) { FactoryGirl.attributes_for(:rating).stringify_keys.merge({"book_id" => book.id.to_s})}
   let(:rating) { FactoryGirl.build(:rating) }
   let(:customer) { FactoryGirl.create(:customer) }
 
   before do 
     sign_in :customer, customer
-    controller.class.skip_before_action :find_book
+    #controller.class.skip_before_action :find_book # BAD THING HAPPENS RIGHT HERE
     controller.params[:book_id] = book.id.to_s
   end
   
@@ -18,7 +18,7 @@ RSpec.describe RatingsController, type: :controller do
     end
  
     it 'assigns @rating variable' do
-      expect(assigns[:rating]).to be_a_new(Rating)
+      expect(assigns(:rating)).to be_a_new(Rating)
     end
  
     it 'renders new template' do

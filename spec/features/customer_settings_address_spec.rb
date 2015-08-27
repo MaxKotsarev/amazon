@@ -151,4 +151,3 @@ feature "Customer settings: addresses." do
     end
   end
 end
-

@@ -1,43 +1,6 @@
 require 'features/features_spec_helper'
 
-=begin
-feature "Settings - Addresses" do
-  scenario "customer send data to create action (hasn't address which form he submits)"
-    scenario "customer submit BA form"
-      +1. scenario "SA?"
-        creates BA
-      +2. scenario "!SA?"
-        creates BA and SA = BA
-    scenario "customer submit SA form"
-      checked
-        -3(controlled by view) scenario "BA?"
-          set SA = BA
-        -4(controlled by view) scenario "!BA?"
-          redirect back with message "you can't use billing address before fill in an save it"
-      +5. unchecked
-        creates SA
-
-  scenario "customer send data to update action (has address which form he submits)"
-    scenario "customer submit BA form"
-      +6. updates BA
-    scenario "customer submit SA form"
-      checked
-        -7(controlled by view). BA == SA 
-          redirect back with message "you already use billing address as shipping"
-        BA !== SA
-          +8. BA?
-            destroy SA
-            set SA = BA
-          +9. !BA?
-            redirect back with message "you can't use billing address before fill in an save it" 
-      unchecked
-        BA !== SA
-          +10. updates SA
-        BA == SA
-          11. create SA
-=end
-
-feature "Customer settings: Addresses" do
+feature "Customer settings: addresses." do
   given(:customer) { FactoryGirl.create(:customer) }
   given(:billing_address) { FactoryGirl.create(:address) }
   given(:shipping_address) { FactoryGirl.create(:address) }
@@ -76,14 +39,14 @@ feature "Customer settings: Addresses" do
   end
 
   context "customer don't have billing address and shipping address" do
-    scenario "customer successfully create billing address via form and shipping address assigns the same" do 
+    scenario "customer successfully create billing address via form and shipping address assigns the same", js: true do 
       fill_address_form('#new_address.billing-address-form') 
       expect(page).to have_content 'Billing address was successfully created.'
       expect(page).to have_selector '#edit_address_1.billing-address-form'
       expect(page).to have_selector '#edit_address_1.shipping-address-form'
     end
 
-    scenario "customer successfully create shipping address via form and billing address remain blank" do 
+    scenario "customer successfully create shipping address via form and billing address remain blank", js: true do 
       within "#new_address.shipping-address-form" do 
         uncheck('Use billing address')
       end
@@ -97,11 +60,22 @@ feature "Customer settings: Addresses" do
   context "customer have only shipping address" do
     before do
       customer.update(shipping_address: shipping_address)
+      visit settings_path
     end
-    scenario "customer successfully create billing address via form and SA doesn't changes" do 
+    scenario "customer successfully create billing address via form and shipping address doesn't changes", js: true do 
       fill_address_form('#new_address.billing-address-form') 
       expect(page).to have_content 'Billing address was successfully created.'
       expect(page).to have_selector '#edit_address_2.billing-address-form'
+      expect(page).to have_selector '#edit_address_1.shipping-address-form'
+    end
+
+    scenario "customer tries to save shipping address form with checked 'Use billing address'", js: true do 
+      within "#edit_address_1.shipping-address-form" do 
+        check('Use billing address')
+        click_button('Save')
+      end 
+      expect(page).to have_content "You can't use billing address as shipping because you don't have it yet"
+      expect(page).to have_selector '#new_address.billing-address-form'
       expect(page).to have_selector '#edit_address_1.shipping-address-form'
     end
   end
@@ -112,14 +86,14 @@ feature "Customer settings: Addresses" do
       visit settings_path
     end
 
-    scenario "customer successfully update billing address via form and shipping address doesn't changes" do 
+    scenario "customer successfully update billing address via form and shipping address doesn't changes", js: true do 
       fill_address_form('#edit_address_1.billing-address-form') 
       expect(page).to have_content 'Billing address was successfully updated.'
       expect(page).to have_selector '#edit_address_1.billing-address-form'
       expect(page).to have_selector '#edit_address_2.shipping-address-form'
     end
 
-    scenario "customer successfully update shipping address via form and billing address doesn't changes" do
+    scenario "customer successfully update shipping address via form and billing address doesn't changes", js: true do
       within "#edit_address_2.shipping-address-form" do 
         uncheck('Use billing address')
       end 
@@ -129,7 +103,7 @@ feature "Customer settings: Addresses" do
       expect(page).to have_selector '#edit_address_2.shipping-address-form'
     end
 
-    scenario "customer save shipping address with chacked 'Use billing address' - billing address assigns also as shipping" do
+    scenario "customer save shipping address with chacked 'Use billing address' - billing address assigns also as shipping", js: true do
       within "#edit_address_2.shipping-address-form" do 
         check('Use billing address')
         click_button('Save')
@@ -140,17 +114,36 @@ feature "Customer settings: Addresses" do
     end
   end
 
+  context "customer have billing and same shipping address" do 
+    before do
+      customer.update(billing_address: billing_address, shipping_address: billing_address)
+      visit settings_path
+    end
+
+    scenario "customer save shipping address form with unchecked 'Use billing address' (optionally editing sip address info)", js: true do
+      within "#edit_address_1.shipping-address-form" do 
+        uncheck('Use billing address')
+        click_button('Save')
+      end 
+      expect(page).to have_content 'Shipping address was successfully created.'
+      expect(page).to have_selector '#edit_address_1.billing-address-form'
+      expect(page).to have_selector '#edit_address_2.shipping-address-form'
+    end
+  end
+
+
   describe "'Use billing address' checkbox" do
-    scenario "customer check it and shipping address form hides", js: true do
+    xscenario "customer check it and shipping address form hides", js: true do
       #within "#new_address.shipping-address-form" do 
       #  check('Use billing address')
       #end
       execute_script("$('#new_address.shipping-address-form checkbox').click()")
       execute_script("$('#new_address.shipping-address-form checkbox').click()")
-      expect(page).to have_selector "#new_address.shipping-address-form .ship-address-form-fields.hidden" 
+      expect(page).to have_selector "#new_address.shipping-address-form .ship-address-form-fields" 
+      expect(page).not_to have_selector "#new_address.shipping-address-form .ship-address-form-fields.hidden" 
     end
 
-    scenario "customer uncheck it and shipping address form becomes visible", js: true do
+    xscenario "customer uncheck it and shipping address form becomes visible", js: true do
       within "#new_address.shipping-address-form" do 
         uncheck('Use billing address')
       end

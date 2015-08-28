@@ -133,21 +133,18 @@ feature "Customer settings: addresses." do
 
 
   describe "'Use billing address' checkbox" do
-    xscenario "customer check it and shipping address form hides", js: true do
-      #within "#new_address.shipping-address-form" do 
-      #  check('Use billing address')
-      #end
-      execute_script("$('#new_address.shipping-address-form checkbox').click()")
-      execute_script("$('#new_address.shipping-address-form checkbox').click()")
-      expect(page).to have_selector "#new_address.shipping-address-form .ship-address-form-fields" 
-      expect(page).not_to have_selector "#new_address.shipping-address-form .ship-address-form-fields.hidden" 
+    scenario "it chaked and shipping address form hides", js: true do
+      within "#new_address.shipping-address-form" do 
+        check('Use billing address')
+      end
+      expect(page).not_to have_selector "#new_address.shipping-address-form .ship-address-form-fields" 
     end
 
-    xscenario "customer uncheck it and shipping address form becomes visible", js: true do
+    scenario "it unchecked and shipping address form becomes visible", js: true do
       within "#new_address.shipping-address-form" do 
         uncheck('Use billing address')
       end
-      expect(page).to have_selector "#new_address.shipping-address-form .ship-address-form-fields.hidden" 
+      expect(page).to have_selector "#new_address.shipping-address-form .ship-address-form-fields" 
     end
   end
 end

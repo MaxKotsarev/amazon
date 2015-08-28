@@ -6,10 +6,12 @@ RSpec.describe RatingsController, type: :controller do
   let(:rating) { FactoryGirl.build(:rating) }
   let(:customer) { FactoryGirl.create(:customer) }
 
+
   before do 
     sign_in :customer, customer
-    controller.class.skip_before_action :find_book
+    #controller.class.skip_before_action :find_book
     controller.params[:book_id] = book.id.to_s
+    Book.stub(:find).and_return book
   end
   
   describe 'GET #new' do 
@@ -27,9 +29,6 @@ RSpec.describe RatingsController, type: :controller do
   end
 
   describe "#find_book" do
-    before do
-      Book.stub(:find).and_return book
-    end
   
     it "receives find and return book" do
       expect(Book).to receive(:find).with(book.id.to_s)

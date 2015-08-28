@@ -44,7 +44,6 @@ RSpec.configure do |config|
   end
 
 
-  config.include FactoryGirl::Syntax::Methods
 end
 
 

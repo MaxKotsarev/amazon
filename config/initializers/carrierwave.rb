@@ -1,7 +1,13 @@
-CarrierWave.configure do |config|
-  config.storage    = :aws
-  config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
-  config.aws_acl    = 'public-read'
+if Rails.env.test? || Rails.env.cucumber?
+  CarrierWave.configure do |config|
+    config.storage = :file
+    config.enable_processing = false
+  end
+else
+  CarrierWave.configure do |config|
+    config.storage    = :aws
+    config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
+    config.aws_acl    = 'public-read'
 
   # Optionally define an asset host for configurations that are fronted by a
   # content host, such as CloudFront.
@@ -19,4 +25,5 @@ CarrierWave.configure do |config|
   # Optional: Signing of download urls, e.g. for serving private
   # content through CloudFront.
   # config.aws_signer = -> { |unsigned_url, options| Aws::CF::Signer.sign_url unsigned_url, options }
+  end
 end

@@ -12,5 +12,10 @@ module Features
         click_button('Save')
       end
     end
+
+    def add_to_cart(book)
+      visit book_path(book) 
+      click_button("ADD TO CART")
+    end
   end
 end 

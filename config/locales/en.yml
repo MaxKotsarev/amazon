@@ -34,13 +34,13 @@ en:
         b_country_id: "Billing address country"
         b_zipcode: "Billing address zipcode"
         b_phone: "Billing address phone"
-        s_firstname: "Shopping address first name"
-        s_lastname: "Shopping address last name"
-        s_address: "Shopping street address"
-        s_city: "Shopping address city"
-        s_country_id: "Shopping address country"
-        s_zipcode: "Shopping address zipcode"
-        s_phone: "Shopping address phone"
+        s_firstname: "Shipping address first name"
+        s_lastname: "Shipping address last name"
+        s_address: "Shipping street address"
+        s_city: "Shipping address city"
+        s_country_id: "Shipping address country"
+        s_zipcode: "Shipping address zipcode"
+        s_phone: "Shipping address phone"
     errors:
       models:
         rating:

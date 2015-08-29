@@ -1,6 +1,9 @@
 require 'features/features_spec_helper'
+require "support/features/form_helpers.rb"
 
 feature "Customer settings: addresses." do
+  include Features::FormHelpers
+
   given(:customer) { FactoryGirl.create(:customer) }
   given(:billing_address) { FactoryGirl.create(:address) }
   given(:shipping_address) { FactoryGirl.create(:address) }

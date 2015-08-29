@@ -20,7 +20,7 @@ RSpec.describe RatingsController, type: :controller do
     end
  
     it 'assigns @rating variable' do
-      expect(assigns[:rating]).to be_a_new(Rating)
+      expect(assigns(:rating)).to be_a_new(Rating)
     end
  
     it 'renders new template' do
@@ -41,7 +41,7 @@ RSpec.describe RatingsController, type: :controller do
     end
   end
 
-  describe "#create" do
+  describe "POST #create" do
     before do 
       controller.stub(:current_customer).and_return customer
       customer.stub_chain(:ratings, :build).and_return rating

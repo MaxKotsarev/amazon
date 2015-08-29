@@ -132,15 +132,15 @@ feature "Customer settings: addresses." do
   end
 
 
-  describe "'Use billing address' checkbox" do
-    scenario "it chaked and shipping address form hides", js: true do
+  describe "'Use billing address' checkbox: " do
+    scenario "it chaked and shipping address form hidden", js: true do
       within "#new_address.shipping-address-form" do 
         check('Use billing address')
       end
       expect(page).not_to have_selector "#new_address.shipping-address-form .ship-address-form-fields" 
     end
 
-    scenario "it unchecked and shipping address form becomes visible", js: true do
+    scenario "it unchecked and shipping address form visible", js: true do
       within "#new_address.shipping-address-form" do 
         uncheck('Use billing address')
       end

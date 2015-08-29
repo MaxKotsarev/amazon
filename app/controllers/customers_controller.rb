@@ -17,28 +17,40 @@ class CustomersController < ApplicationController
   end
 
   def change_password
-    old_pass = password_params[:old_password]
-    new_pass = password_params[:new_password]
-
-    if current_customer.valid_password?(old_pass) && new_pass.size >= 8
-      @customer = current_customer
-      @customer.update(password: new_pass)
-      sign_in @customer, :bypass => true
-      flash[:success] = "Your password successfully changed."
-      redirect_to settings_path
-    elsif !current_customer.valid_password?(old_pass) 
-      flash[:error] = "You entered wrong current password. Pls try again."
-      redirect_to settings_path
+    if old_and_new_pass_ok?
+      update_password
+    elsif !old_pass_valid?
+      redirect_to_settings_with_error("You entered wrong current password. Pls try again.")
     else 
-      flash[:error] = "New password should have at least 8 characters. Pls try again."
-      redirect_to settings_path
+      redirect_to_settings_with_error("New password should have at least 8 characters. Pls try again.")
     end
   end    
 
   private
 
+  def update_password
+    @customer = current_customer
+    @customer.update(password: password_params[:new_password])
+    sign_in @customer, :bypass => true
+    flash[:success] = "Your password successfully changed."
+    redirect_to settings_path
+  end
+
+  def redirect_to_settings_with_error(error_massage)
+    flash[:error] = error_massage
+    redirect_to settings_path
+  end
+
   def password_params 
     params.require(:customer).permit(:old_password, :new_password)
+  end
+
+  def old_and_new_pass_ok?
+    old_pass_valid? && password_params[:new_password].size >= 8
+  end
+
+  def old_pass_valid?
+    current_customer.valid_password?(password_params[:old_password]) 
   end
 
   def name_email_params

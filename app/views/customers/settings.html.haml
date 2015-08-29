@@ -82,7 +82,7 @@
       %h2.underlined-h2 Name and email
       .row
         .col-md-8
-          = form_for current_customer, url: change_personal_info_path, method: :put do |f|
+          = form_for current_customer, url: change_personal_info_path, html: {class: "personal-info-form"}, method: :put do |f|
             -if current_customer.errors.any?
               %div.alert.alert-danger
                 - current_customer.errors.full_messages.each do |msg|
@@ -103,7 +103,7 @@
       %h2.underlined-h2 Password
       .row
         .col-md-8
-          = form_for current_customer, url: change_password_path, method: :put do |f|
+          = form_for current_customer, url: change_password_path, html: {class: "password-form"}, method: :put do |f|
             .form-group
               = f.label :old_password, "Old password", class: "control-label"
               = f.password_field :old_password, autocomplete: "off", class: "form-control"

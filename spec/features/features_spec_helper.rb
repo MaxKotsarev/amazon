@@ -4,5 +4,5 @@ require 'capybara/webkit/matchers'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'support/warden.rb'
-require 'devise'
+#require 'devise'
 Capybara.javascript_driver = :webkit

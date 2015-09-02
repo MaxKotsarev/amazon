@@ -9,7 +9,6 @@ RSpec.describe RatingsController, type: :controller do
 
   before do 
     sign_in :customer, customer
-    #controller.class.skip_before_action :find_book
     controller.params[:book_id] = book.id.to_s
     Book.stub(:find).and_return book
   end
@@ -28,8 +27,7 @@ RSpec.describe RatingsController, type: :controller do
     end
   end
 
-  describe "#find_book" do
-  
+  describe "#find_book" do  
     it "receives find and return book" do
       expect(Book).to receive(:find).with(book.id.to_s)
       controller.send(:find_book)

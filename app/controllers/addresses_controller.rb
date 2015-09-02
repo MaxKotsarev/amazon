@@ -3,12 +3,10 @@ class AddressesController < ApplicationController
   load_and_authorize_resource
 
   def update 
-    if params[:address_type] == "billing" || (params[:address_type] == "shipping" && !params[:use_billing_as_shipping]) 
-      if current_customer.billing_address != current_customer.shipping_address
-        update_address(@address)  
-      else 
-        create
-      end
+    if need_to_update_address? 
+      update_address(@address)
+    elsif need_to_create_new_shipping_address?
+      create
     else
       save_billing_instead_of_shipping(@address)      
     end
@@ -32,16 +30,28 @@ class AddressesController < ApplicationController
 
   def set_customer_address_id(address_type, address_id)
     current_customer.update({"#{address_type}_address_id" => address_id}) 
-    current_customer.update(shipping_address_id: @address.id) if address_type == "billing" && !current_customer.shipping_address
+    current_customer.update(shipping_address_id: address_id) if address_type == "billing" && !current_customer.shipping_address
   end
 
   def update_address(address)
     if address.update(address_params)
-      flash[:success] = "#{params[:address_type].capitalize}  address was successfully updated."
+      flash[:success] = "#{params[:address_type].capitalize} address was successfully updated."
       redirect_to settings_path 
     else
       render_settings_with_errors 
     end
+  end
+
+  def need_to_update_address? 
+    params[:address_type] == "billing" ||
+    (params[:address_type] == "shipping" &&
+    !params[:use_billing_as_shipping] && current_customer.billing_address != current_customer.shipping_address)
+  end 
+
+  def need_to_create_new_shipping_address?
+    (params[:address_type] == "shipping" &&
+    !params[:use_billing_as_shipping] &&
+    current_customer.billing_address == current_customer.shipping_address)
   end
 
   def save_billing_instead_of_shipping(address)

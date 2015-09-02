@@ -19,7 +19,6 @@ class CreditCardsController < ApplicationController
   end
 
   private
-
   def credit_card_params
     params.require(:credit_card).permit(:number, :cvv, :lastname, :firstname, :exp_month, :exp_year) 
   end
